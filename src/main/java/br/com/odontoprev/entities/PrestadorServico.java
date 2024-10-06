@@ -1,9 +1,15 @@
 package br.com.odontoprev.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -13,14 +19,33 @@ public class PrestadorServico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nome;
-    private String cro;
-    private String especialidade;
-    private int contratosAtivos;
-    private double avaliacaoCliente;
 
-    // RELAC ENDERECO
-    // RELAC PLANO
-    // RELAC GESTORA SINISTRO
-    // RELAC REDE CREDENCIADA
+    @NotNull
+    @Size(max = 100)
+    private String nome;
+
+    @NotNull
+    private int numeroCro;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private EspecialidadeEnum especialidade;
+
+    @NotNull
+    @Size(max = 50)
+    private String numeroContrato;
+
+    @Range(min = 1, max = 5)
+    private Integer avaliacao;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "rede_credenciada_id")
+    private RedeCredenciada redeCredenciada;
+
+    @ManyToMany(mappedBy = "prestadorServicos")
+    private List<TipoServico> tipoServicos;
+
+    @OneToMany(mappedBy = "prestadorServico")
+    private List<Sinistro> sinistros;
 }

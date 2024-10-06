@@ -2,28 +2,34 @@ package br.com.odontoprev.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
 @Table
-public class RedeCredenciada {
+public class TipoServico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false, length = 50)
     @NotNull
-    @Size(max = 100)
     private String nome;
 
-    @OneToMany(mappedBy = "redeCredenciada", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Endereco> enderecos;
+    @Column(nullable = false)
+    @NotNull
+    private double valorReais;
 
-    @OneToMany(mappedBy = "redeCredenciada", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tipoServico")
+    private List<TipoPlanoOdontologico> tipoPlanos;
+
+    @OneToMany(mappedBy = "tipoServico")
+    private List<Servico> servicos;
+
+    @OneToMany(mappedBy = "tipoServico")
     private List<PrestadorServico> prestadorServicos;
 }
+
