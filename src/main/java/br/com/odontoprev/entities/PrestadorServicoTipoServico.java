@@ -13,10 +13,10 @@ public class PrestadorServicoTipoServico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
-    private int qtdePontos;
+    private Integer qtdePontos;
 
     @NotNull
     private Date dataAdesao;

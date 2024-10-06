@@ -15,13 +15,13 @@ public class PlanoOdontologico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     private Date dataExpiracao;
 
     @NotNull
-    private double precoCobrado;
+    private Double precoCobrado;
 
     private Date dataFinalCarencia;
 

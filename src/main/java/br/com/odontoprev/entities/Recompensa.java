@@ -13,7 +13,7 @@ public class Recompensa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     private Date resgatadoEm;

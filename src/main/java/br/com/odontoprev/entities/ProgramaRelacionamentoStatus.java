@@ -14,12 +14,12 @@ public class ProgramaRelacionamentoStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     @NotNull
     @ColumnDefault("0")
-    private int qtdePontos;
+    private Integer qtdePontos;
 
     @Column(nullable = false)
     @NotNull

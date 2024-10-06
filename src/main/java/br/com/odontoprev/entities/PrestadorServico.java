@@ -18,14 +18,14 @@ public class PrestadorServico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @Size(max = 100)
     private String nome;
 
     @NotNull
-    private int numeroCro;
+    private Integer numeroCro;
 
     @NotNull
     @Enumerated(EnumType.STRING)

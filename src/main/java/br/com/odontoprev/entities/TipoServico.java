@@ -13,7 +13,7 @@ public class TipoServico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, length = 50)
     @NotNull
@@ -21,7 +21,7 @@ public class TipoServico {
 
     @Column(nullable = false)
     @NotNull
-    private double valorReais;
+    private Double valorReais;
 
     @OneToMany(mappedBy = "tipoServico")
     private List<TipoPlanoOdontologico> tipoPlanos;
@@ -29,7 +29,7 @@ public class TipoServico {
     @OneToMany(mappedBy = "tipoServico")
     private List<Servico> servicos;
 
-    @OneToMany(mappedBy = "tipoServico")
+    @ManyToMany(mappedBy = "tipoServico")
     private List<PrestadorServico> prestadorServicos;
 }
 

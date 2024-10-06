@@ -17,11 +17,11 @@ import java.util.Date;
 public class Missao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotNull
     @Range(min = 0, max = 1)
-    private int concluido;
+    private Integer concluido;
 
     private int recompensaRecebida;
 

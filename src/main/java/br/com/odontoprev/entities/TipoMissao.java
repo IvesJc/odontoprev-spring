@@ -14,7 +14,7 @@ public class TipoMissao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, length = 200)
     @NotNull
@@ -22,11 +22,11 @@ public class TipoMissao {
 
     @Column(nullable = false)
     @NotNull
-    private int duracaoPadraoDias;
+    private Integer duracaoPadraoDias;
 
     @Column(nullable = false)
     @NotNull
-    private int recompensaPadrao;
+    private Integer recompensaPadrao;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

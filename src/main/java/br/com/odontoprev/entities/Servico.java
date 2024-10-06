@@ -11,19 +11,19 @@ public class Servico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     @NotNull
-    private double valorPago;
+    private Double valorPago;
 
     @Column(nullable = false)
     @NotNull
-    private int tipoServicoId;
+    private Integer tipoServicoId;
 
     @Column(nullable = false)
     @NotNull
-    private int sinistroId;
+    private Integer sinistroId;
 
     @ManyToOne
     @JoinColumn(name = "tipo_servico_id", referencedColumnName = "id", insertable = false, updatable = false)

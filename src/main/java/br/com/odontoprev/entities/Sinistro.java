@@ -14,7 +14,7 @@ public class Sinistro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     @NotNull
@@ -28,11 +28,11 @@ public class Sinistro {
 
     @Column(nullable = false)
     @NotNull
-    private int beneficiarioId;
+    private Integer beneficiarioId;
 
     @Column(nullable = false)
     @NotNull
-    private int prestadorServicoId;
+    private Integer prestadorServicoId;
 
     @ManyToOne
     @JoinColumn(name = "beneficiario_id", referencedColumnName = "id", insertable = false, updatable = false)
