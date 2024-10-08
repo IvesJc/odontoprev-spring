@@ -35,11 +35,7 @@ public class PlanoOdontologico {
     @JoinColumn(name = "empresa_contratante_id")
     private EmpresaContratante empresaContratante;
 
-    @ManyToMany
-    @JoinTable(
-            name = "beneficiario_plano",
-            joinColumns = @JoinColumn(name = "plano_id"),
-            inverseJoinColumns = @JoinColumn(name = "beneficiario_id")
-    )
+    @ManyToMany(mappedBy = "planos")
+    @JoinColumn(name = "beneficiario_plano")
     private List<Beneficiario> beneficiarios;
 }

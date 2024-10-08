@@ -17,20 +17,13 @@ public class Servico {
     @NotNull
     private Double valorPago;
 
-    @Column(nullable = false)
-    @NotNull
-    private Integer tipoServicoId;
-
-    @Column(nullable = false)
-    @NotNull
-    private Integer sinistroId;
 
     @ManyToOne
-    @JoinColumn(name = "tipo_servico_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "tipo_servico_id", updatable = false)
     private TipoServico tipoServico;
 
     @ManyToOne
-    @JoinColumn(name = "sinistro_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "sinistro_id", updatable = false)
     private Sinistro sinistro;
 
 }

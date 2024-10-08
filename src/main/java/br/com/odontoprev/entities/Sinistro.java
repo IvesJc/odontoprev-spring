@@ -26,14 +26,6 @@ public class Sinistro {
 
     private Double valorPagoParaPrestador;
 
-    @Column(nullable = false)
-    @NotNull
-    private Integer beneficiarioId;
-
-    @Column(nullable = false)
-    @NotNull
-    private Integer prestadorServicoId;
-
     @ManyToOne
     @JoinColumn(name = "beneficiario_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Beneficiario beneficiario;
