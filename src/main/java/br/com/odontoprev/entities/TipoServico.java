@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table
+@Table(name = "tipo_servico")
 public class TipoServico {
 
     @Id
@@ -23,13 +23,14 @@ public class TipoServico {
     @NotNull
     private Double valorReais;
 
-    @OneToMany(mappedBy = "tipoServico")
-    private List<TipoPlanoOdontologico> tipoPlanos;
+    @OneToMany(mappedBy = "tipoServico",cascade = CascadeType.ALL)
+    private List<Possui> possui;
 
     @OneToMany(mappedBy = "tipoServico")
     private List<Servico> servicos;
 
-    @ManyToMany(mappedBy = "tipoServico")
-    private List<PrestadorServico> prestadorServicos;
+    @OneToMany(mappedBy = "tipoServico",cascade = CascadeType.ALL)
+    private List<PrestadorServicoTipoServico> prestadorServicos;
+
 }
 

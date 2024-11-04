@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table
+@Table(name = "tipo_plano_odontologico")
 public class TipoPlanoOdontologico {
 
     @Id
@@ -35,8 +35,8 @@ public class TipoPlanoOdontologico {
     @NotNull
     private Integer validadeDias;
 
-    @OneToMany(mappedBy = "tipoPlano")
-    private List<TipoServico> tipoServicos;
+    @OneToMany(mappedBy = "tipoPlanoOdontologico", cascade = CascadeType.ALL    )
+    private List<Possui> possui;
 
     @OneToMany(mappedBy = "tipoPlano")
     private List<PlanoOdontologico> planos;

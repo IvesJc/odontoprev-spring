@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table
+@Table(name = "rede_credenciada")
 public class RedeCredenciada {
 
     @Id

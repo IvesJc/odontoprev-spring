@@ -1,17 +1,19 @@
 package br.com.odontoprev.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
-@Table(name = "tb_beneficiario")
+@Table(name = "beneficiario")
 public class Beneficiario {
 
     @Id
@@ -42,7 +44,7 @@ public class Beneficiario {
     private Date dataAdesao;
 
     @Size(max = 300)
-    private String fotoUrl;
+    private String foto;
 
     @Size(max = 50)
     private String numeroContrato;
@@ -58,8 +60,18 @@ public class Beneficiario {
     @OneToOne(mappedBy = "beneficiario")
     private ProgramaRelacionamentoStatus programaRelacionamentoStatus;
 
-    @ManyToMany(mappedBy = "beneficiarios")
-    private List<PlanoOdontologico> planos;
+//    @JsonManagedReference
+////    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+////    @ManyToMany
+////    @JoinTable(
+////            name = "contratado",
+////            joinColumns = @JoinColumn(name = "beneficiario_id", referencedColumnName = "id"),
+////            inverseJoinColumns = @JoinColumn(name = "plano_odontologico_id", referencedColumnName = "id")
+////    )
+////    private List<PlanoOdontologico> planos;
+
+    @OneToMany(mappedBy = "beneficiario", cascade = CascadeType.ALL)
+    private List<Contratado> contratos;
 
     @OneToMany(mappedBy = "beneficiario")
     private List<Sinistro> sinistros;

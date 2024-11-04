@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table
+@Table(name = "prestador_servico")
 public class PrestadorServico {
 
     @Id
@@ -43,8 +43,8 @@ public class PrestadorServico {
     @JoinColumn(name = "rede_credenciada_id")
     private RedeCredenciada redeCredenciada;
 
-    @ManyToMany(mappedBy = "prestadorServicos")
-    private List<TipoServico> tipoServicos;
+    @OneToMany(mappedBy = "prestadorServico",cascade = CascadeType.ALL)
+    private List<PrestadorServicoTipoServico> tipoServicos;
 
     @OneToMany(mappedBy = "prestadorServico")
     private List<Sinistro> sinistros;

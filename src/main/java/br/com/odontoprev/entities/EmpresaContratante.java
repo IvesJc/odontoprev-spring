@@ -10,7 +10,7 @@ import lombok.Data;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "empresa_contratante")
 @Data
 public class EmpresaContratante {
 

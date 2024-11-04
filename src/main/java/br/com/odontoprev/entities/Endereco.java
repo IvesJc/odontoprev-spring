@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
-@Table
+@Table(name = "endereco")
 @Data
 public class Endereco {
 

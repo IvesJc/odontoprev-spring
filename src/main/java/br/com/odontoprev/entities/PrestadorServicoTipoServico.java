@@ -8,21 +8,20 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table
+@Table(name = "prestador_servico_tipo_servico")
 public class PrestadorServicoTipoServico {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @EmbeddedId
+    private PrestadorServicoTipoServicoId id;
 
-    @NotNull
-    private Integer qtdePontos;
-
-    @NotNull
-    private Date dataAdesao;
-
-    @NotNull
     @ManyToOne
-    @JoinColumn(name = "beneficiario_id")
-    private Beneficiario beneficiario;
+    @MapsId("prestadorServicoId") // Mapeia tipoPlanoOdontologicoId na chave composta
+    @JoinColumn(name = "prestador_servico_id", referencedColumnName = "id")
+    private PrestadorServico prestadorServico;
+
+    @ManyToOne
+    @MapsId("tipoServicoId") // Mapeia tipoServicoId na chave composta
+    @JoinColumn(name = "tipo_servico_id", referencedColumnName = "id")
+    private TipoServico tipoServico;
+
 }
