@@ -3,6 +3,7 @@ package br.com.odontoprev.gateways;
 import br.com.odontoprev.entities.Endereco;
 import br.com.odontoprev.usecases.EnderecoUsecase;
 import br.com.odontoprev.usecases.impl.EnderecoUsecaseImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/enderecos")
 @RequiredArgsConstructor
+@Tag(name = "Endereco", description = "Endpoints destinados para a classe Endereco")
+
 public class EnderecoController {
 
     private final EnderecoUsecaseImpl enderecoUsecase;

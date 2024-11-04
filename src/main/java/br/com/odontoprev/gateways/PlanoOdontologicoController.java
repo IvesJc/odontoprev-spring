@@ -2,6 +2,7 @@ package br.com.odontoprev.gateways;
 
 import br.com.odontoprev.entities.PlanoOdontologico;
 import br.com.odontoprev.usecases.impl.PlanoOdontologicoUsecaseImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/planos")
+@Tag(name = "Plano Odontologico", description = "Endpoints destinados para a classe Plano Odontologico")
+
 public class PlanoOdontologicoController {
 
     @Autowired

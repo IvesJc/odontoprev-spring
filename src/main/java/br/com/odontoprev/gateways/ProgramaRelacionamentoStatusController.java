@@ -3,6 +3,7 @@ package br.com.odontoprev.gateways;
 
 import br.com.odontoprev.entities.ProgramaRelacionamentoStatus;
 import br.com.odontoprev.usecases.impl.ProgramaRelacionamentoStatusUsecaseImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/programa-relacionamento-status")
 @RequiredArgsConstructor
+@Tag(name = "Programa Relacionamento Status", description = "Endpoints destinados para a classe Programa Relacionamento Status")
+
 public class ProgramaRelacionamentoStatusController {
 
     private final ProgramaRelacionamentoStatusUsecaseImpl programaRelacionamentoStatusService;

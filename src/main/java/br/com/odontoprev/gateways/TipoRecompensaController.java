@@ -2,6 +2,7 @@ package br.com.odontoprev.gateways;
 
 import br.com.odontoprev.entities.TipoRecompensa;
 import br.com.odontoprev.usecases.impl.TipoRecompensaUsecaseImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/tipos-recompensa")
 @RequiredArgsConstructor
+@Tag(name = "Tipo Recompensa", description = "Endpoints destinados para a classe Tipo Recompensa")
+
+
 public class TipoRecompensaController {
 
     private final TipoRecompensaUsecaseImpl tipoRecompensaService;

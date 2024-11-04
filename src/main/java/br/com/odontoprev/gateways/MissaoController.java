@@ -2,6 +2,7 @@ package br.com.odontoprev.gateways;
 
 import br.com.odontoprev.entities.Missao;
 import br.com.odontoprev.usecases.impl.MissaoUsecaseImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/missoes")
 @RequiredArgsConstructor
+@Tag(name = "Missao", description = "Endpoints destinados para a classe Missao")
+
 public class MissaoController {
 
     private final MissaoUsecaseImpl missaoUsecase;

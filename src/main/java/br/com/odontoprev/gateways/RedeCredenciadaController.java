@@ -2,6 +2,7 @@ package br.com.odontoprev.gateways;
 
 import br.com.odontoprev.entities.RedeCredenciada;
 import br.com.odontoprev.usecases.impl.RedeCredenciadaUsecaseImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/redes")
+@Tag(name = "Rede Credenciada", description = "Endpoints destinados para a classe Rede Credenciada")
+
 public class RedeCredenciadaController {
 
     @Autowired
