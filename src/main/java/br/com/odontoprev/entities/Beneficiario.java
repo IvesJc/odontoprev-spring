@@ -34,11 +34,7 @@ public class Beneficiario {
     @Column(nullable = false, length = 15)
     private String cns;
 
-    private String cns;
-
-
     private int tipo;
-
 
     @Pattern(regexp = "^(\\+55\\s ?)?(0?(\\(?\\d{2}\\)?)?\\s?\\d{4,5}-?\\d{4}$)")
     private String telefone;

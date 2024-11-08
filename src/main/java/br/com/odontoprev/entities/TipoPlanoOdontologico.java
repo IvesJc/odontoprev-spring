@@ -22,9 +22,6 @@ public class TipoPlanoOdontologico {
     @NotNull
     private String numero;
 
-
-    private String numero;
-
     private String tipo;
 
     private Double preco;
