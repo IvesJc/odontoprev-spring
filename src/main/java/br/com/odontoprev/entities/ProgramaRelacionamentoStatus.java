@@ -16,16 +16,13 @@ public class ProgramaRelacionamentoStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    @NotNull
     @ColumnDefault("0")
     private Integer qtdePontos;
 
-    @Column(nullable = false)
-    @NotNull
     @Temporal(TemporalType.DATE)
     private Date dataAdesao;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "beneficiario_id", nullable = false)
     private Beneficiario beneficiario;

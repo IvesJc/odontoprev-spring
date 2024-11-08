@@ -15,10 +15,8 @@ public class Recompensa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     private Date resgatadoEm;
 
-    @NotNull
     private Date expiraEm;
 
     @NotNull
@@ -26,7 +24,6 @@ public class Recompensa {
     @JoinColumn(name = "beneficiario_id")
     private Beneficiario beneficiario;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "tipo_recompensa_id")
     private TipoRecompensa tipoRecompensa;

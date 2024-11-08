@@ -1,9 +1,11 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.BeneficiarioRequestTelaPrincipalDto;
 import br.com.odontoprev.entities.Beneficiario;
 import br.com.odontoprev.usecases.impl.BeneficiarioUsecaseImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,11 @@ import java.util.List;
 public class BeneficiarioController {
 
     private final BeneficiarioUsecaseImpl beneficiarioUsecase;
+
+    @GetMapping("/android/{id}")
+    public ResponseEntity<BeneficiarioRequestTelaPrincipalDto> buscarBeneficiarioPorId(@PathVariable Integer id) {
+        return beneficiarioUsecase.buscarBeneficiarioPorId(id);
+    }
 
     @GetMapping
     public ResponseEntity<List<Beneficiario>> getAllBeneficiarios() {

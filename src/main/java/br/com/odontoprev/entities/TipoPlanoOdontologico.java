@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,8 +16,6 @@ public class TipoPlanoOdontologico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 50)
-    @NotNull
     private String nome;
 
     @Column(nullable = false, length = 13)
@@ -24,21 +23,15 @@ public class TipoPlanoOdontologico {
     private String numero;
 
 
-    @Column(nullable = false)
-    @NotNull
+    private String numero;
+
     private String tipo;
 
-    @Column(nullable = false)
-    @NotNull
     private Double preco;
 
-    @Column(nullable = false)
-    @NotNull
-    private Integer carenciaDias;
+    private Date carenciaDias;
 
-    @Column(nullable = false)
-    @NotNull
-    private Integer validadeDias;
+    private Date validadeDias;
 
     @OneToMany(mappedBy = "tipoPlanoOdontologico", cascade = CascadeType.ALL    )
     private List<Possui> possui;

@@ -17,8 +17,6 @@ public class RedeCredenciada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
-    @Size(max = 100)
     private String nome;
 
     @OneToMany(mappedBy = "redeCredenciada", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

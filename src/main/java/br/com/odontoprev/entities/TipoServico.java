@@ -1,7 +1,6 @@
 package br.com.odontoprev.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.List;
@@ -15,12 +14,8 @@ public class TipoServico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 50)
-    @NotNull
     private String nome;
 
-    @Column(nullable = false)
-    @NotNull
     private Double valorReais;
 
     @OneToMany(mappedBy = "tipoServico",cascade = CascadeType.ALL)

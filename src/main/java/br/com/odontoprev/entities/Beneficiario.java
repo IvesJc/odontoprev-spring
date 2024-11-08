@@ -20,15 +20,13 @@ public class Beneficiario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
-    @Size(max = 100)
+
     private String nome;
 
-    @NotNull
-    @Size(max = 200)
+
     private String password;
 
-    @NotNull
+
     @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$")
     private String cpf;
 
@@ -36,43 +34,26 @@ public class Beneficiario {
     @Column(nullable = false, length = 15)
     private String cns;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private TipoBeneficiarioEnum tipo;
+    private String cns;
 
-    @NotNull
+
+    private int tipo;
+
+
     @Pattern(regexp = "^(\\+55\\s ?)?(0?(\\(?\\d{2}\\)?)?\\s?\\d{4,5}-?\\d{4}$)")
     private String telefone;
 
-    @NotNull
+    @Column(name = "data_adesao")
     private Date dataAdesao;
 
-    @Size(max = 300)
     private String foto;
 
-    @Size(max = 50)
+    @Column(name = "numero_contrato")
     private String numeroContrato;
 
     @OneToOne
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
-
-    @ManyToOne
-    @JoinColumn(name = "empresa_contratante_id")
-    private EmpresaContratante empresaContratante;
-
-    @OneToOne(mappedBy = "beneficiario")
-    private ProgramaRelacionamentoStatus programaRelacionamentoStatus;
-
-//    @JsonManagedReference
-////    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-////    @ManyToMany
-////    @JoinTable(
-////            name = "contratado",
-////            joinColumns = @JoinColumn(name = "beneficiario_id", referencedColumnName = "id"),
-////            inverseJoinColumns = @JoinColumn(name = "plano_odontologico_id", referencedColumnName = "id")
-////    )
-////    private List<PlanoOdontologico> planos;
 
     @OneToMany(mappedBy = "beneficiario", cascade = CascadeType.ALL)
     private List<Contratado> contratos;
@@ -85,6 +66,9 @@ public class Beneficiario {
 
     @OneToMany(mappedBy = "beneficiario")
     private List<Recompensa> recompensas;
+
+    @OneToOne
+    private TipoPlanoOdontologico tipoPlanoOdontologico;
 
 }
 

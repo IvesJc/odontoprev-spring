@@ -3,6 +3,7 @@ package br.com.odontoprev.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.extern.log4j.Log4j;
 
 import java.util.Date;
 import java.util.List;
@@ -16,12 +17,8 @@ public class Sinistro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    @NotNull
     private Date dataSolicitacao;
 
-    @Column(nullable = false)
-    @NotNull
     private Date dataAutorizacao;
 
     private Double valorPagoParaPrestador;
@@ -30,6 +27,7 @@ public class Sinistro {
     @JoinColumn(name = "beneficiario_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Beneficiario beneficiario;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "prestador_servico_id", referencedColumnName = "id", insertable = false, updatable = false)
     private PrestadorServico prestadorServico;

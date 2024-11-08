@@ -19,13 +19,11 @@ public class Missao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     @Range(min = 0, max = 1)
     private Integer concluido;
 
     private int recompensaRecebida;
 
-    @NotNull
     private Date expiraEm;
 
     @NotNull

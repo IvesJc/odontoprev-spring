@@ -16,16 +16,10 @@ public class TipoMissao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 200)
-    @NotNull
     private String titulo;
 
-    @Column(nullable = false)
-    @NotNull
     private Integer duracaoPadraoDias;
 
-    @Column(nullable = false)
-    @NotNull
     private Integer recompensaPadrao;
 
     @Enumerated(EnumType.STRING)

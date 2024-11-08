@@ -16,18 +16,11 @@ public class TipoRecompensa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 100)
-    @NotNull
     private String nome;
 
-    @Column(nullable = false)
-    @NotNull
     private Integer expiracaoDias;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    @NotNull
-    private AplicacaoEnum aplicacao;
+    private Integer aplicacao;
 
     @OneToMany(mappedBy = "tipoRecompensa")
     private List<Recompensa> recompensas;

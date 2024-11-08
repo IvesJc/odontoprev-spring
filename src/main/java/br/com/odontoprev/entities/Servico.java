@@ -13,11 +13,9 @@ public class Servico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    @NotNull
     private Double valorPago;
 
-
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "tipo_servico_id", updatable = false)
     private TipoServico tipoServico;

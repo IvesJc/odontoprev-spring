@@ -16,10 +16,8 @@ public class PlanoOdontologico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     private Date dataValidade;
 
-    @NotNull
     private Double precoCobrado;
 
     private Date dataFinalCarencia;

@@ -20,22 +20,16 @@ public class PrestadorServico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
-    @Size(max = 100)
     private String nome;
 
-    @NotNull
     private Integer numeroCro;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private EspecialidadeEnum especialidade;
 
-    @NotNull
-    @Size(max = 50)
     private String numeroContrato;
 
-    @Range(min = 1, max = 5)
+    @Range(min = 1, max = 2)
     private Integer avaliacao;
 
     @NotNull

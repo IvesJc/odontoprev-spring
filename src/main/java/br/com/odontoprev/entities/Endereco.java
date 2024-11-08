@@ -16,27 +16,20 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
-    @Size(max = 200)
     private String rua;
 
-    @NotNull
     private int numero;
 
-    @NotNull
-    @Size(max = 200)
     private String cidade;
 
-    @NotNull
-    @Size(max = 200)
     private String estado;
 
-    @NotNull
     @Pattern(regexp = "^\\d{5}-\\d{3}$")
     private String cep;
 
     private String complemento;
 
+    @NotNull
     @OneToOne(mappedBy = "endereco")
     private Beneficiario beneficiario;
 
