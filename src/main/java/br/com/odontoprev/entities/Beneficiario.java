@@ -33,6 +33,10 @@ public class Beneficiario {
     private String cpf;
 
     @NotNull
+    @Column(nullable = false, length = 15)
+    private String cns;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     private TipoBeneficiarioEnum tipo;
 

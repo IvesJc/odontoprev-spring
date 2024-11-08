@@ -19,6 +19,11 @@ public class TipoPlanoOdontologico {
     @NotNull
     private String nome;
 
+    @Column(nullable = false, length = 13)
+    @NotNull
+    private String numero;
+
+
     @Column(nullable = false)
     @NotNull
     private String tipo;
