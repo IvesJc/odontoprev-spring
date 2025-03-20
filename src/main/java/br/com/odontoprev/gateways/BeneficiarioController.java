@@ -1,11 +1,12 @@
 package br.com.odontoprev.gateways;
 
-import br.com.odontoprev.dto.BeneficiarioRequestTelaPrincipalDto;
+import br.com.odontoprev.dto.beneficiario.BeneficiarioDto;
+import br.com.odontoprev.dto.beneficiario.CreateBeneficiarioDto;
+import br.com.odontoprev.dto.beneficiario.UpdateBeneficiarioDto;
 import br.com.odontoprev.entities.Beneficiario;
 import br.com.odontoprev.usecases.impl.BeneficiarioUsecaseImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,27 +21,28 @@ public class BeneficiarioController {
     private final BeneficiarioUsecaseImpl beneficiarioUsecase;
 
     @GetMapping("/android/{id}")
-    public ResponseEntity<BeneficiarioRequestTelaPrincipalDto> buscarBeneficiarioPorId(@PathVariable Integer id) {
+    public ResponseEntity<BeneficiarioDto> buscarBeneficiarioPorId(@PathVariable Integer id) {
         return beneficiarioUsecase.buscarBeneficiarioPorId(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<Beneficiario>> getAllBeneficiarios() {
+    public ResponseEntity<List<BeneficiarioDto>> getAllBeneficiarios() {
         return beneficiarioUsecase.getAllBeneficiarios();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Beneficiario> getBeneficiarioById(@PathVariable int id) {
+    public ResponseEntity<BeneficiarioDto> getBeneficiarioById(@PathVariable int id) {
         return beneficiarioUsecase.getBeneficiarioById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Beneficiario> createBeneficiario(@RequestBody Beneficiario beneficiario) {
+    public ResponseEntity<BeneficiarioDto> createBeneficiario(@RequestBody CreateBeneficiarioDto beneficiario) {
         return beneficiarioUsecase.createBeneficiario(beneficiario);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Beneficiario> updateBeneficiario(@PathVariable int id, @RequestBody Beneficiario beneficiario) {
+    public ResponseEntity<BeneficiarioDto> updateBeneficiario(@PathVariable int id,
+                                                              @RequestBody UpdateBeneficiarioDto beneficiario) {
         return beneficiarioUsecase.updateBeneficiario(id, beneficiario);
     }
 

@@ -1,5 +1,8 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.tipoRecompensa.CreateTipoRecompensaDto;
+import br.com.odontoprev.dto.tipoRecompensa.TipoRecompensaDto;
+import br.com.odontoprev.dto.tipoRecompensa.UpdateTipoRecompensaDto;
 import br.com.odontoprev.entities.TipoRecompensa;
 import br.com.odontoprev.usecases.impl.TipoRecompensaUsecaseImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,22 +24,23 @@ public class TipoRecompensaController {
     private final TipoRecompensaUsecaseImpl tipoRecompensaService;
 
     @GetMapping
-    public ResponseEntity<List<TipoRecompensa>> getAllTiposRecompensa() {
+    public ResponseEntity<List<TipoRecompensaDto>> getAllTiposRecompensa() {
         return tipoRecompensaService.getAllTipoRecompensas();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TipoRecompensa> getTipoRecompensaById(@PathVariable int id) {
+    public ResponseEntity<TipoRecompensaDto> getTipoRecompensaById(@PathVariable int id) {
         return tipoRecompensaService.getTipoRecompensaById(id);
     }
 
     @PostMapping
-    public ResponseEntity<TipoRecompensa> createTipoRecompensa(@RequestBody TipoRecompensa tipoRecompensa) {
+    public ResponseEntity<TipoRecompensaDto> createTipoRecompensa(@RequestBody CreateTipoRecompensaDto tipoRecompensa) {
         return tipoRecompensaService.createTipoRecompensa(tipoRecompensa);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TipoRecompensa> updateTipoRecompensa(@PathVariable int id, @RequestBody TipoRecompensa tipoRecompensaDetails) {
+    public ResponseEntity<TipoRecompensaDto> updateTipoRecompensa(@PathVariable int id,
+                                                                  @RequestBody UpdateTipoRecompensaDto tipoRecompensaDetails) {
         return tipoRecompensaService.updateTipoRecompensa(id, tipoRecompensaDetails);
     }
 

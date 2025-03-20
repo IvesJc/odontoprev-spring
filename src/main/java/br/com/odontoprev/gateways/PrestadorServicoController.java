@@ -1,5 +1,8 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.prestadorServico.CreatePrestadorServicoDto;
+import br.com.odontoprev.dto.prestadorServico.PrestadorServicoDto;
+import br.com.odontoprev.dto.prestadorServico.UpdatePrestadorServicoDto;
 import br.com.odontoprev.entities.PrestadorServico;
 import br.com.odontoprev.usecases.impl.PrestadorServicoUsecaseImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,22 +23,23 @@ public class PrestadorServicoController {
     private final PrestadorServicoUsecaseImpl prestadorServicoService;
 
     @GetMapping
-    public ResponseEntity<List<PrestadorServico>> getAllPrestadores() {
+    public ResponseEntity<List<PrestadorServicoDto>> getAllPrestadores() {
         return prestadorServicoService.getAllPrestadores();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PrestadorServico> getPrestadorById(@PathVariable int id) {
+    public ResponseEntity<PrestadorServicoDto> getPrestadorById(@PathVariable int id) {
         return prestadorServicoService.getPrestadorById(id);
     }
 
     @PostMapping
-    public ResponseEntity<PrestadorServico> createPrestador(@RequestBody PrestadorServico prestador) {
+    public ResponseEntity<PrestadorServicoDto> createPrestador(@RequestBody CreatePrestadorServicoDto prestador) {
         return prestadorServicoService.createPrestador(prestador);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PrestadorServico> updatePrestador(@PathVariable int id, @RequestBody PrestadorServico prestador) {
+    public ResponseEntity<PrestadorServicoDto> updatePrestador(@PathVariable int id,
+                                                               @RequestBody UpdatePrestadorServicoDto prestador) {
         return prestadorServicoService.updatePrestador(id, prestador);
     }
 

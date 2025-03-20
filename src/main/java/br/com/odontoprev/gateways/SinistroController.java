@@ -1,5 +1,8 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.sinistro.CreateSinistroDto;
+import br.com.odontoprev.dto.sinistro.SinistroDto;
+import br.com.odontoprev.dto.sinistro.UpdateSinistroDto;
 import br.com.odontoprev.entities.Sinistro;
 import br.com.odontoprev.usecases.impl.SinistroUsecaseImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,22 +21,22 @@ public class SinistroController {
     private SinistroUsecaseImpl sinistroService;
 
     @GetMapping
-    public ResponseEntity<List<Sinistro>> getAllSinistros() {
+    public ResponseEntity<List<SinistroDto>> getAllSinistros() {
         return sinistroService.getAllSinistros();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Sinistro> getSinistroById(@PathVariable int id) {
+    public ResponseEntity<SinistroDto> getSinistroById(@PathVariable int id) {
         return sinistroService.getSinistroById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Sinistro> createSinistro(@RequestBody Sinistro sinistro) {
+    public ResponseEntity<SinistroDto> createSinistro(@RequestBody CreateSinistroDto sinistro) {
         return sinistroService.createSinistro(sinistro);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Sinistro> updateSinistro(@PathVariable int id, @RequestBody Sinistro sinistro) {
+    public ResponseEntity<SinistroDto> updateSinistro(@PathVariable int id, @RequestBody UpdateSinistroDto sinistro) {
         return sinistroService.updateSinistro(id, sinistro);
     }
 

@@ -1,5 +1,8 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.servico.CreateServicoDto;
+import br.com.odontoprev.dto.servico.ServicoDto;
+import br.com.odontoprev.dto.servico.UpdateServicoDto;
 import br.com.odontoprev.entities.Servico;
 import br.com.odontoprev.usecases.impl.ServicoUsecaseImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,22 +22,23 @@ public class ServicoController {
     private final ServicoUsecaseImpl servicoService;
 
     @GetMapping
-    public ResponseEntity<List<Servico>> getAllServicos() {
+    public ResponseEntity<List<ServicoDto>> getAllServicos() {
         return servicoService.getAllServicos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Servico> getServicoById(@PathVariable int id) {
+    public ResponseEntity<ServicoDto> getServicoById(@PathVariable int id) {
         return servicoService.getServicoById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Servico> createServico(@RequestBody Servico servico) {
+    public ResponseEntity<ServicoDto> createServico(@RequestBody CreateServicoDto servico) {
         return servicoService.createServico(servico);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Servico> updateServico(@PathVariable int id, @RequestBody Servico servicoDetails) {
+    public ResponseEntity<ServicoDto> updateServico(@PathVariable int id,
+                                                    @RequestBody UpdateServicoDto servicoDetails) {
         return servicoService.updateServico(id, servicoDetails);
     }
 

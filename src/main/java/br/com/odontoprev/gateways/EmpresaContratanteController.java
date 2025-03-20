@@ -1,5 +1,8 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.empresaContratante.CreateEmpresaContratanteDto;
+import br.com.odontoprev.dto.empresaContratante.EmpresaContratanteDto;
+import br.com.odontoprev.dto.empresaContratante.UpdateEmpresaContratanteDto;
 import br.com.odontoprev.entities.EmpresaContratante;
 import br.com.odontoprev.usecases.impl.EmpresaContratanteUsecaseImpl;
 import br.com.odontoprev.usecases.impl.EmpresaContratanteUsecaseImpl;
@@ -19,22 +22,23 @@ public class EmpresaContratanteController {
     private final EmpresaContratanteUsecaseImpl empresaContratanteUsecase;
 
     @GetMapping
-    public ResponseEntity<List<EmpresaContratante>> getAllEmpresaContratantes() {
+    public ResponseEntity<List<EmpresaContratanteDto>> getAllEmpresaContratantes() {
         return empresaContratanteUsecase.getAllEmpresas();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmpresaContratante> getEmpresaContratanteById(@PathVariable int id) {
+    public ResponseEntity<EmpresaContratanteDto> getEmpresaContratanteById(@PathVariable int id) {
         return empresaContratanteUsecase.getEmpresaById(id);
     }
 
     @PostMapping
-    public ResponseEntity<EmpresaContratante> createEmpresaContratante(@RequestBody EmpresaContratante empresaContratante) {
+    public ResponseEntity<EmpresaContratanteDto> createEmpresaContratante(@RequestBody CreateEmpresaContratanteDto empresaContratante) {
         return empresaContratanteUsecase.createEmpresa(empresaContratante);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EmpresaContratante> updateEmpresaContratante(@PathVariable int id, @RequestBody EmpresaContratante empresaContratante) {
+    public ResponseEntity<EmpresaContratanteDto> updateEmpresaContratante(@PathVariable int id,
+                                                                          @RequestBody UpdateEmpresaContratanteDto empresaContratante) {
         return empresaContratanteUsecase.updateEmpresa(id, empresaContratante);
     }
 

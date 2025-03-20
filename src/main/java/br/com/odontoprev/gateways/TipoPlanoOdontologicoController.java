@@ -1,5 +1,8 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.tipoPlano.CreateTipoPlanoDto;
+import br.com.odontoprev.dto.tipoPlano.TipoPlanoDto;
+import br.com.odontoprev.dto.tipoPlano.UpdateTipoPlanoDto;
 import br.com.odontoprev.entities.TipoPlanoOdontologico;
 import br.com.odontoprev.usecases.impl.TipoPlanoOdontologicoUsecaseImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,23 +22,24 @@ public class TipoPlanoOdontologicoController {
     private final TipoPlanoOdontologicoUsecaseImpl TipoPlanoOdontologicoService;
 
     @GetMapping
-    public ResponseEntity<List<TipoPlanoOdontologico>> getAllTiposPlano() {
-        return TipoPlanoOdontologicoService.getAllTipoPlanoOdontologicos();
+    public ResponseEntity<List<TipoPlanoDto>> getAllTiposPlano() {
+        return TipoPlanoOdontologicoService.getAllTipoPlano();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TipoPlanoOdontologico> getTipoPlanoOdontologicoById(@PathVariable int id) {
-        return TipoPlanoOdontologicoService.getTipoPlanoOdontologicoById(id);
+    public ResponseEntity<TipoPlanoDto> getTipoPlanoOdontologicoById(@PathVariable int id) {
+        return TipoPlanoOdontologicoService.getTipoPlanoById(id);
     }
 
     @PostMapping
-    public ResponseEntity<TipoPlanoOdontologico> createTipoPlanoOdontologico(@RequestBody TipoPlanoOdontologico TipoPlanoOdontologico) {
-        return TipoPlanoOdontologicoService.createTipoPlanoOdontologico(TipoPlanoOdontologico);
+    public ResponseEntity<TipoPlanoDto> createTipoPlanoOdontologico(@RequestBody CreateTipoPlanoDto TipoPlanoOdontologico) {
+        return TipoPlanoOdontologicoService.createTipoPlano(TipoPlanoOdontologico);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TipoPlanoOdontologico> updateTipoPlanoOdontologico(@PathVariable int id, @RequestBody TipoPlanoOdontologico TipoPlanoOdontologicoDetails) {
-        return TipoPlanoOdontologicoService.updateTipoPlanoOdontologico(id, TipoPlanoOdontologicoDetails);
+    public ResponseEntity<TipoPlanoDto> updateTipoPlanoOdontologico(@PathVariable int id,
+                                                                    @RequestBody UpdateTipoPlanoDto TipoPlanoOdontologicoDetails) {
+        return TipoPlanoOdontologicoService.updateTipoPlano(id, TipoPlanoOdontologicoDetails);
     }
 
     @DeleteMapping("/{id}")

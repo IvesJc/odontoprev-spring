@@ -1,5 +1,8 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.plano.CreatePlanoDto;
+import br.com.odontoprev.dto.plano.PlanoDto;
+import br.com.odontoprev.dto.plano.UpdatePlanoDto;
 import br.com.odontoprev.entities.PlanoOdontologico;
 import br.com.odontoprev.usecases.impl.PlanoOdontologicoUsecaseImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,22 +22,22 @@ public class PlanoOdontologicoController {
     private PlanoOdontologicoUsecaseImpl planoService;
 
     @GetMapping
-    public ResponseEntity<List<PlanoOdontologico>> getAllPlanos() {
+    public ResponseEntity<List<PlanoDto>> getAllPlanos() {
         return planoService.getAllPlanoOdontologicos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlanoOdontologico> getPlanoById(@PathVariable int id) {
+    public ResponseEntity<PlanoDto> getPlanoById(@PathVariable int id) {
         return planoService.getPlanoOdontologicoById(id);
     }
 
     @PostMapping
-    public ResponseEntity<PlanoOdontologico> createPlano(@RequestBody PlanoOdontologico plano) {
+    public ResponseEntity<PlanoDto> createPlano(@RequestBody CreatePlanoDto plano) {
         return planoService.createPlanoOdontologico(plano);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PlanoOdontologico> updatePlano(@PathVariable int id, @RequestBody PlanoOdontologico plano) {
+    public ResponseEntity<PlanoDto> updatePlano(@PathVariable int id, @RequestBody UpdatePlanoDto plano) {
         return planoService.updatePlanoOdontologico(id, plano);
     }
 

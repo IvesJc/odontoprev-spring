@@ -1,5 +1,8 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.missao.CreateMissaoDto;
+import br.com.odontoprev.dto.missao.MissaoDto;
+import br.com.odontoprev.dto.missao.UpdateMissaoDto;
 import br.com.odontoprev.entities.Missao;
 import br.com.odontoprev.usecases.impl.MissaoUsecaseImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,22 +23,22 @@ public class MissaoController {
     private final MissaoUsecaseImpl missaoUsecase;
 
     @GetMapping
-    public ResponseEntity<List<Missao>> getAllMissoes() {
+    public ResponseEntity<List<MissaoDto>> getAllMissoes() {
         return missaoUsecase.getAllMissaos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Missao> getMissaoById(@PathVariable int id) {
+    public ResponseEntity<MissaoDto> getMissaoById(@PathVariable int id) {
         return missaoUsecase.getMissaoById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Missao> createMissao(@RequestBody Missao missao) {
+    public ResponseEntity<MissaoDto> createMissao(@RequestBody CreateMissaoDto missao) {
         return missaoUsecase.createMissao(missao);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Missao> updateMissao(@PathVariable int id, @RequestBody Missao missao) {
+    public ResponseEntity<MissaoDto> updateMissao(@PathVariable int id, @RequestBody UpdateMissaoDto missao) {
         return missaoUsecase.updateMissao(id, missao);
     }
 

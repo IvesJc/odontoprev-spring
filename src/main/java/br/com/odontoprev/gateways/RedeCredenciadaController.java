@@ -1,5 +1,8 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.redeCredenciada.CreateRedeCredenciadaDto;
+import br.com.odontoprev.dto.redeCredenciada.RedeCredenciadaDto;
+import br.com.odontoprev.dto.redeCredenciada.UpdateRedeCredenciadaDto;
 import br.com.odontoprev.entities.RedeCredenciada;
 import br.com.odontoprev.usecases.impl.RedeCredenciadaUsecaseImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,22 +22,22 @@ public class RedeCredenciadaController {
     private RedeCredenciadaUsecaseImpl redeCredenciadaService;
 
     @GetMapping
-    public ResponseEntity<List<RedeCredenciada>> getAllRedes() {
+    public ResponseEntity<List<RedeCredenciadaDto>> getAllRedes() {
         return redeCredenciadaService.getAllRedeCredenciada();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RedeCredenciada> getRedeById(@PathVariable int id) {
+    public ResponseEntity<RedeCredenciadaDto> getRedeById(@PathVariable int id) {
         return redeCredenciadaService.getRedeCredenciadaById(id);
     }
 
     @PostMapping
-    public ResponseEntity<RedeCredenciada> createRede(@RequestBody RedeCredenciada rede) {
+    public ResponseEntity<RedeCredenciadaDto> createRede(@RequestBody CreateRedeCredenciadaDto rede) {
         return redeCredenciadaService.createRedeCredenciada(rede);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RedeCredenciada> updateRede(@PathVariable int id, @RequestBody RedeCredenciada rede) {
+    public ResponseEntity<RedeCredenciadaDto> updateRede(@PathVariable int id, @RequestBody UpdateRedeCredenciadaDto rede) {
         return redeCredenciadaService.updateRedeCredenciada(id, rede);
     }
 

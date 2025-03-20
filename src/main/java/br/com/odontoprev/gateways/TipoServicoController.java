@@ -1,5 +1,8 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.tipoServico.CreateTipoServicoDto;
+import br.com.odontoprev.dto.tipoServico.TipoServicoDto;
+import br.com.odontoprev.dto.tipoServico.UpdateTipoServicoDto;
 import br.com.odontoprev.entities.TipoServico;
 import br.com.odontoprev.usecases.impl.TipoServicoUsecaseImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,22 +23,23 @@ public class TipoServicoController {
     private final TipoServicoUsecaseImpl tipoServicoService;
 
     @GetMapping
-    public ResponseEntity<List<TipoServico>> getAllTiposServico() {
+    public ResponseEntity<List<TipoServicoDto>> getAllTiposServico() {
         return tipoServicoService.getAllTipoServicos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TipoServico> getTipoServicoById(@PathVariable int id) {
+    public ResponseEntity<TipoServicoDto> getTipoServicoById(@PathVariable int id) {
         return tipoServicoService.getTipoServicoById(id);
     }
 
     @PostMapping
-    public ResponseEntity<TipoServico> createTipoServico(@RequestBody TipoServico tipoServico) {
+    public ResponseEntity<TipoServicoDto> createTipoServico(@RequestBody CreateTipoServicoDto tipoServico) {
         return tipoServicoService.createTipoServico(tipoServico);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TipoServico> updateTipoServico(@PathVariable int id, @RequestBody TipoServico tipoServicoDetails) {
+    public ResponseEntity<TipoServicoDto> updateTipoServico(@PathVariable int id,
+                                                            @RequestBody UpdateTipoServicoDto tipoServicoDetails) {
         return tipoServicoService.updateTipoServico(id, tipoServicoDetails);
     }
 

@@ -1,5 +1,8 @@
 package br.com.odontoprev.gateways;
 
+import br.com.odontoprev.dto.endereco.CreateEnderecoDto;
+import br.com.odontoprev.dto.endereco.EnderecoDto;
+import br.com.odontoprev.dto.endereco.UpdateEnderecoDto;
 import br.com.odontoprev.entities.Endereco;
 import br.com.odontoprev.usecases.EnderecoUsecase;
 import br.com.odontoprev.usecases.impl.EnderecoUsecaseImpl;
@@ -20,22 +23,22 @@ public class EnderecoController {
     private final EnderecoUsecaseImpl enderecoUsecase;
 
     @GetMapping
-    public ResponseEntity<List<Endereco>> getAllEnderecos() {
+    public ResponseEntity<List<EnderecoDto>> getAllEnderecos() {
         return enderecoUsecase.getAllEnderecos();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Endereco> getEnderecoById(@PathVariable int id) {
+    public ResponseEntity<EnderecoDto> getEnderecoById(@PathVariable int id) {
         return enderecoUsecase.getEnderecoById(id);
     }
 
     @PostMapping
-    public ResponseEntity<Endereco> createEndereco(@RequestBody Endereco endereco) {
+    public ResponseEntity<EnderecoDto> createEndereco(@RequestBody CreateEnderecoDto endereco) {
         return enderecoUsecase.createEndereco(endereco);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Endereco> updateEndereco(@PathVariable int id, @RequestBody Endereco endereco) {
+    public ResponseEntity<EnderecoDto> updateEndereco(@PathVariable int id, @RequestBody UpdateEnderecoDto endereco) {
         return enderecoUsecase.updateEndereco(id, endereco);
     }
 
