@@ -1,8 +1,10 @@
 package br.com.odontoprev.usecases.impl;
 
-import br.com.odontoprev.dto.BeneficiarioRequestTelaPrincipalDto;
+import br.com.odontoprev.dto.beneficiario.BeneficiarioDto;
+import br.com.odontoprev.dto.beneficiario.CreateBeneficiarioDto;
+import br.com.odontoprev.dto.beneficiario.UpdateBeneficiarioDto;
 import br.com.odontoprev.entities.Beneficiario;
-import br.com.odontoprev.entities.TipoPlanoOdontologico;
+import br.com.odontoprev.mappers.BeneficiarioMapper;
 import br.com.odontoprev.repositories.BeneficiarioRepository;
 import br.com.odontoprev.usecases.BeneficiarioUsecase;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class BeneficiarioUsecaseImpl implements BeneficiarioUsecase {
@@ -18,42 +22,52 @@ public class BeneficiarioUsecaseImpl implements BeneficiarioUsecase {
     private final BeneficiarioRepository beneficiarioRepository;
 
 
-    @Override
-    public ResponseEntity<List<Beneficiario>> getAllBeneficiarios() {
+    public ResponseEntity<List<BeneficiarioDto>> getAllBeneficiarios() {
         List<Beneficiario> beneficiarios = beneficiarioRepository.findAll();
-        return ResponseEntity.ok(beneficiarios);
+        List<BeneficiarioDto> beneficiariosDto = beneficiarios.stream()
+                .map(BeneficiarioMapper::toBeneficiarioDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(beneficiariosDto);
     }
 
-    @Override
-    public ResponseEntity<Beneficiario> getBeneficiarioById(int id) {
+    public ResponseEntity<BeneficiarioDto> getBeneficiarioById(int id) {
         return beneficiarioRepository.findById(id)
-                .map(ResponseEntity::ok)
+                .map(beneficiario -> ResponseEntity.ok(BeneficiarioMapper.toBeneficiarioDto(beneficiario)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @Override
-    public ResponseEntity<BeneficiarioRequestTelaPrincipalDto> buscarBeneficiarioPorId(int id) {
-        return beneficiarioRepository.findById(id)
-                .map(this::mapearParaDto)
-                .map(ResponseEntity::ok) // Retorna 200 OK com o DTO
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public ResponseEntity<BeneficiarioDto> buscarBeneficiarioPorId(int id) {
+        return beneficiarioRepository.findById(id).map(beneficiario -> ResponseEntity.ok(BeneficiarioMapper.toBeneficiarioDto(beneficiario))).orElse(ResponseEntity.notFound().build());
     }
 
-    @Override
-    public ResponseEntity<Beneficiario> createBeneficiario(Beneficiario beneficiario) {
+    public ResponseEntity<BeneficiarioDto> createBeneficiario(CreateBeneficiarioDto createBeneficiarioDto) {
+        Beneficiario beneficiario = BeneficiarioMapper.toBeneficiarioFromCreate(createBeneficiarioDto);
+
+        // Salva o beneficiário no repositório
         Beneficiario savedBeneficiario = beneficiarioRepository.save(beneficiario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedBeneficiario);
+
+        // Retorna a resposta com o DTO do beneficiário criado
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(BeneficiarioMapper.toBeneficiarioDto(savedBeneficiario));
     }
 
+
     @Override
-    public ResponseEntity<Beneficiario> updateBeneficiario(int id, Beneficiario beneficiario) {
+    public ResponseEntity<BeneficiarioDto> updateBeneficiario(int id, UpdateBeneficiarioDto updateBeneficiarioDto) {
         if (!beneficiarioRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
+
+        Beneficiario beneficiario = BeneficiarioMapper.toBeneficiarioFromUpdate(updateBeneficiarioDto);
         beneficiario.setId(id);
-        Beneficiario updatedBeneficiario = beneficiarioRepository.save(beneficiario);
-        return ResponseEntity.ok(updatedBeneficiario);
+
+        beneficiarioRepository.save(beneficiario);
+
+        return ResponseEntity.ok(BeneficiarioMapper.toBeneficiarioDto(beneficiario));
     }
+
 
     @Override
     public ResponseEntity<Void> deleteBeneficiario(int id) {
@@ -62,15 +76,5 @@ public class BeneficiarioUsecaseImpl implements BeneficiarioUsecase {
         }
         beneficiarioRepository.deleteById(id);
         return ResponseEntity.noContent().build();
-    }
-
-    private BeneficiarioRequestTelaPrincipalDto mapearParaDto(Beneficiario beneficiario) {
-        return BeneficiarioRequestTelaPrincipalDto.builder()
-                .nome(beneficiario.getNome())
-                .nomePlanoOdontologico(beneficiario.getTipoPlanoOdontologico().getNome()) // Exemplo; substituir
-                // pelo valor real
-                .numeroPlano(beneficiario.getTipoPlanoOdontologico().getNumero())
-                .cns(beneficiario.getCns())
-                .build();
     }
 }

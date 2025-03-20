@@ -1,6 +1,10 @@
 package br.com.odontoprev.usecases.impl;
 
+import br.com.odontoprev.dto.redeCredenciada.CreateRedeCredenciadaDto;
+import br.com.odontoprev.dto.redeCredenciada.RedeCredenciadaDto;
+import br.com.odontoprev.dto.redeCredenciada.UpdateRedeCredenciadaDto;
 import br.com.odontoprev.entities.RedeCredenciada;
+import br.com.odontoprev.mappers.RedeCredenciadaMapper;
 import br.com.odontoprev.repositories.RedeCredenciadaRepository;
 import br.com.odontoprev.usecases.RedeCredenciadaUsecase;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -17,32 +22,40 @@ public class RedeCredenciadaUsecaseImpl implements RedeCredenciadaUsecase {
     private final RedeCredenciadaRepository redeCredenciadaRepository;
 
     @Override
-    public ResponseEntity<List<RedeCredenciada>> getAllRedeCredenciada() {
-        List<RedeCredenciada> redeCredenciadas = redeCredenciadaRepository.findAll();
-        return ResponseEntity.ok(redeCredenciadas);
+    public ResponseEntity<List<RedeCredenciadaDto>> getAllRedeCredenciada() {
+        List<RedeCredenciada> redesCredenciadas = redeCredenciadaRepository.findAll();
+        List<RedeCredenciadaDto> redesCredenciadasDto = redesCredenciadas.stream()
+                .map(RedeCredenciadaMapper::toRedeCredenciadaDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(redesCredenciadasDto);
     }
 
     @Override
-    public ResponseEntity<RedeCredenciada> getRedeCredenciadaById(int id) {
+    public ResponseEntity<RedeCredenciadaDto> getRedeCredenciadaById(int id) {
         return redeCredenciadaRepository.findById(id)
-                .map(ResponseEntity::ok)
+                .map(redeCredenciada -> ResponseEntity.ok(RedeCredenciadaMapper.toRedeCredenciadaDto(redeCredenciada)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @Override
-    public ResponseEntity<RedeCredenciada> createRedeCredenciada(RedeCredenciada redeCredenciadas) {
-        RedeCredenciada savedRedeCredenciada = redeCredenciadaRepository.save(redeCredenciadas);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedRedeCredenciada);
+    public ResponseEntity<RedeCredenciadaDto> createRedeCredenciada(CreateRedeCredenciadaDto createDto) {
+        RedeCredenciada redeCredenciada = RedeCredenciadaMapper.toRedeCredenciadaFromCreate(createDto);
+        RedeCredenciada savedRedeCredenciada = redeCredenciadaRepository.save(redeCredenciada);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(RedeCredenciadaMapper.toRedeCredenciadaDto(savedRedeCredenciada));
     }
 
     @Override
-    public ResponseEntity<RedeCredenciada> updateRedeCredenciada(int id, RedeCredenciada redeCredenciadas) {
+    public ResponseEntity<RedeCredenciadaDto> updateRedeCredenciada(int id, UpdateRedeCredenciadaDto updateDto) {
         if (!redeCredenciadaRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        redeCredenciadas.setId(id);
-        RedeCredenciada updatedRedeCredenciada = redeCredenciadaRepository.save(redeCredenciadas);
-        return ResponseEntity.ok(updatedRedeCredenciada);
+
+        RedeCredenciada redeCredenciada = RedeCredenciadaMapper.toRedeCredenciadaFromUpdate(updateDto);
+        redeCredenciada.setId(id);
+
+        RedeCredenciada updatedRedeCredenciada = redeCredenciadaRepository.save(redeCredenciada);
+        return ResponseEntity.ok(RedeCredenciadaMapper.toRedeCredenciadaDto(updatedRedeCredenciada));
     }
 
     @Override

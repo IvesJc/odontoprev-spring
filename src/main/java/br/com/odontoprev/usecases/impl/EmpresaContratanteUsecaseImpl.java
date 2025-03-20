@@ -1,6 +1,10 @@
 package br.com.odontoprev.usecases.impl;
 
+import br.com.odontoprev.dto.empresaContratante.CreateEmpresaContratanteDto;
+import br.com.odontoprev.dto.empresaContratante.EmpresaContratanteDto;
+import br.com.odontoprev.dto.empresaContratante.UpdateEmpresaContratanteDto;
 import br.com.odontoprev.entities.EmpresaContratante;
+import br.com.odontoprev.mappers.EmpresaContratanteMapper;
 import br.com.odontoprev.repositories.EmpresaContratanteRepository;
 import br.com.odontoprev.usecases.EmpresaContratanteUsecase;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -16,34 +21,44 @@ public class EmpresaContratanteUsecaseImpl implements EmpresaContratanteUsecase 
 
     private final EmpresaContratanteRepository empresaContratanteRepository;
 
-
     @Override
-    public ResponseEntity<List<EmpresaContratante>> getAllEmpresas() {
+    public ResponseEntity<List<EmpresaContratanteDto>> getAllEmpresas() {
         List<EmpresaContratante> empresas = empresaContratanteRepository.findAll();
-        return ResponseEntity.ok(empresas);
+        List<EmpresaContratanteDto> empresasDto = empresas.stream()
+                .map(EmpresaContratanteMapper::toEmpresaContratanteDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(empresasDto);
     }
 
     @Override
-    public ResponseEntity<EmpresaContratante> getEmpresaById(int id) {
+    public ResponseEntity<EmpresaContratanteDto> getEmpresaById(int id) {
         return empresaContratanteRepository.findById(id)
-                .map(ResponseEntity::ok)
+                .map(empresa -> ResponseEntity.ok(EmpresaContratanteMapper.toEmpresaContratanteDto(empresa)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @Override
-    public ResponseEntity<EmpresaContratante> createEmpresa(EmpresaContratante empresa) {
-        EmpresaContratante savedEmpresa = empresaContratanteRepository.save(empresa);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedEmpresa);
+    public ResponseEntity<EmpresaContratanteDto> createEmpresa(CreateEmpresaContratanteDto createDto) {
+        EmpresaContratante empresaContratante = EmpresaContratanteMapper.toEmpresaContratanteFromCreate(createDto);
+
+        EmpresaContratante savedEmpresa = empresaContratanteRepository.save(empresaContratante);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(EmpresaContratanteMapper.toEmpresaContratanteDto(savedEmpresa));
     }
 
     @Override
-    public ResponseEntity<EmpresaContratante> updateEmpresa(int id, EmpresaContratante empresa) {
+    public ResponseEntity<EmpresaContratanteDto> updateEmpresa(int id, UpdateEmpresaContratanteDto updateDto) {
         if (!empresaContratanteRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        empresa.setId(id);
-        EmpresaContratante updatedEmpresa = empresaContratanteRepository.save(empresa);
-        return ResponseEntity.ok(updatedEmpresa);
+
+        EmpresaContratante empresaContratante = EmpresaContratanteMapper.toEmpresaContratanteFromUpdate(updateDto);
+        empresaContratante.setId(id);
+
+        EmpresaContratante updatedEmpresa = empresaContratanteRepository.save(empresaContratante);
+        return ResponseEntity.ok(EmpresaContratanteMapper.toEmpresaContratanteDto(updatedEmpresa));
     }
 
     @Override

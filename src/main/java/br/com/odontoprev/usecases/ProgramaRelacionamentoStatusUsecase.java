@@ -1,6 +1,8 @@
 package br.com.odontoprev.usecases;
 
-import br.com.odontoprev.entities.ProgramaRelacionamentoStatus;
+import br.com.odontoprev.dto.programaRelacionamentoStatus.CreateProgramaRelacionamentoStatusDto;
+import br.com.odontoprev.dto.programaRelacionamentoStatus.ProgramaRelacionamentoStatusDto;
+import br.com.odontoprev.dto.programaRelacionamentoStatus.UpdateProgramaRelacionamentoStatusDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +10,10 @@ import java.util.List;
 
 @Service
 public interface ProgramaRelacionamentoStatusUsecase {
-    ResponseEntity<List<ProgramaRelacionamentoStatus>> getAllProgramaRelacionamentoStatus();
-    ResponseEntity<ProgramaRelacionamentoStatus> getProgramaRelacionamentoStatusById(int id);
-    ResponseEntity<ProgramaRelacionamentoStatus> createProgramaRelacionamentoStatus(ProgramaRelacionamentoStatus prestador);
-    ResponseEntity<ProgramaRelacionamentoStatus> updateProgramaRelacionamentoStatus(int id, ProgramaRelacionamentoStatus prestador);
-    ResponseEntity<Void> deleteProgramaRelacionamentoStatus(int id);
+    ResponseEntity<List<ProgramaRelacionamentoStatusDto>> getAllProgramaRelacionamentoStatus();
+    ResponseEntity<ProgramaRelacionamentoStatusDto> getProgramaRelacionamentoStatusById(int id);
+    ResponseEntity<ProgramaRelacionamentoStatusDto> createProgramaRelacionamentoStatus(CreateProgramaRelacionamentoStatusDto prestador);
+    ResponseEntity<ProgramaRelacionamentoStatusDto> updateProgramaRelacionamentoStatus(int id,
+                                                                                          UpdateProgramaRelacionamentoStatusDto prestador);
+    ResponseEntity<Void> deleteProgramaRelacionamentoStatusDto(int id);
 }

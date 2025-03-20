@@ -1,6 +1,11 @@
 package br.com.odontoprev.usecases.impl;
 
+import br.com.odontoprev.dto.tipoRecompensa.CreateTipoRecompensaDto;
+import br.com.odontoprev.dto.tipoRecompensa.TipoRecompensaDto;
+import br.com.odontoprev.dto.tipoRecompensa.UpdateTipoRecompensaDto;
 import br.com.odontoprev.entities.TipoRecompensa;
+import br.com.odontoprev.mappers.TipoRecompensaMapper;
+import br.com.odontoprev.mappers.TipoServicoMapper;
 import br.com.odontoprev.repositories.TipoRecompensaRepository;
 import br.com.odontoprev.usecases.TipoRecompensaUsecase;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -17,32 +24,36 @@ public class TipoRecompensaUsecaseImpl implements TipoRecompensaUsecase {
     private final TipoRecompensaRepository tipoRecompensaRepository;
 
     @Override
-    public ResponseEntity<List<TipoRecompensa>> getAllTipoRecompensas() {
+    public ResponseEntity<List<TipoRecompensaDto>> getAllTipoRecompensas() {
         List<TipoRecompensa> tipoRecompensas = tipoRecompensaRepository.findAll();
-        return ResponseEntity.ok(tipoRecompensas);
+        return ResponseEntity.ok(TipoRecompensaMapper.toDtoList(tipoRecompensas));
     }
 
     @Override
-    public ResponseEntity<TipoRecompensa> getTipoRecompensaById(int id) {
-        return tipoRecompensaRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<TipoRecompensaDto> getTipoRecompensaById(int id) {
+        Optional<TipoRecompensa> tipoRecompensaOpt = tipoRecompensaRepository.findById(id);
+        return tipoRecompensaOpt.map(tipoRecompensa -> ResponseEntity.ok(TipoRecompensaMapper.toDto(tipoRecompensa))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Override
-    public ResponseEntity<TipoRecompensa> createTipoRecompensa(TipoRecompensa tipoRecompensas) {
-        TipoRecompensa savedTipoRecompensa = tipoRecompensaRepository.save(tipoRecompensas);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedTipoRecompensa);
+    public ResponseEntity<TipoRecompensaDto> createTipoRecompensa(CreateTipoRecompensaDto createDto) {
+        TipoRecompensa tipoRecompensa = TipoRecompensaMapper.toEntity(createDto);
+        TipoRecompensa savedTipoRecompensa = tipoRecompensaRepository.save(tipoRecompensa);
+        return ResponseEntity.ok(TipoRecompensaMapper.toDto(savedTipoRecompensa));
     }
 
     @Override
-    public ResponseEntity<TipoRecompensa> updateTipoRecompensa(int id, TipoRecompensa tipoRecompensas) {
-        if (!tipoRecompensaRepository.existsById(id)) {
+    public ResponseEntity<TipoRecompensaDto> updateTipoRecompensa(int id, UpdateTipoRecompensaDto updateDto) {
+        Optional<TipoRecompensa> tipoRecompensaOpt = tipoRecompensaRepository.findById(id);
+        if (tipoRecompensaOpt.isPresent()) {
+            TipoRecompensa tipoRecompensa = tipoRecompensaOpt.get();
+            tipoRecompensa = TipoRecompensaMapper.toEntity(updateDto);
+            tipoRecompensa.setId(id);
+            TipoRecompensa updatedTipoRecompensa = tipoRecompensaRepository.save(tipoRecompensa);
+            return ResponseEntity.ok(TipoRecompensaMapper.toDto(updatedTipoRecompensa));
+        } else {
             return ResponseEntity.notFound().build();
         }
-        tipoRecompensas.setId(id);
-        TipoRecompensa updatedTipoRecompensa = tipoRecompensaRepository.save(tipoRecompensas);
-        return ResponseEntity.ok(updatedTipoRecompensa);
     }
 
     @Override
