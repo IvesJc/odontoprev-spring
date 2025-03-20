@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Empresas Contratantes</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar.html :: navbar}"></div>
+
+<h2>Lista de Empresas Contratantes</h2>
+<a th:href="@{/empresas/novo}"><button>Adicionar Nova Empresa</button></a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>CNPJ</th>
+        <th>Número do Contrato</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="empresa : ${empresas}">
+        <td th:text="${empresa.nome}"></td>
+        <td th:text="${empresa.cnpj}"></td>
+        <td th:text="${empresa.numeroContrato}"></td>
+        <td>
+            <a th:href="@{/empresas/{id}(id=${empresa.id})}"><button>Detalhes</button></a>
+
+            <a th:href="@{/empresas/{id}/editar(id=${empresa.id})}"><button>Editar</button></a>
+
+            <form th:action="@{/empresas/{id}/deletar(id=${empresa.id})}" method="post" style="display:inline;">
+                <button type="submit">Excluir</button>
+            </form>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:replace="~{fragments/footer.html :: footer}"></div>
+</body>
+</html>

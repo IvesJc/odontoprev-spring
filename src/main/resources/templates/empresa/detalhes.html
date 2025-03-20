@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes da Empresa Contratante</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar.html :: navbar}"></div>
+
+<h2>Detalhes da Empresa Contratante</h2>
+
+<p><strong>Nome:</strong> <span th:text="${empresa.nome}"></span></p>
+<p><strong>CNPJ:</strong> <span th:text="${empresa.cnpj}"></span></p>
+<p><strong>Número do Contrato:</strong> <span th:text="${empresa.numeroContrato}"></span></p>
+
+<a th:href="@{/empresas}">Voltar</a>
+<a th:href="@{/empresas/{id}/editar(id=${empresa.id})}"><button>Editar</button></a>
+
+<a th:href="@{/empresas/{id}/deletar(id=${empresa.id})}"><button>Excluir</button></a>
+
+
+<div th:replace="~{fragments/footer.html :: footer}"></div>
+</body>
+</html>

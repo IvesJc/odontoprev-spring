@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirmar Exclusão</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar.html :: navbar}"></div>
+
+<h2>Tem certeza que deseja excluir esta empresa contratante?</h2>
+
+<form th:action="@{/empresas/{id}/deletar(id=${empresa.id})}" method="post">
+    <button type="submit">Confirmar</button>
+</form>
+
+<!-- Link para cancelar -->
+<a th:href="@{/empresas}">Cancelar</a>
+
+<div th:replace="~{fragments/footer.html :: footer}"></div>
+</body>
+</html>
