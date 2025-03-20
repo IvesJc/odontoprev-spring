@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.Range;
 
@@ -14,27 +17,34 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "missao")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Missao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Range(min = 0, max = 1)
+    @NotNull
+    @Min(0)
+    @Max(1)
+    @Column(nullable = false, columnDefinition = "int default 0")
     private Integer concluido;
 
-    private int recompensaRecebida;
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private Integer recompensaRecebida;
 
-    private Date expiraEm;
+    @NotNull
+    @Column(nullable = false)
+    private LocalDateTime expiraEm;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "tipo_missao_id")
+    @JoinColumn(name = "tipo_missao_id", referencedColumnName = "id", nullable = false)
     private TipoMissao tipoMissao;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "beneficiario_id")
+    @JoinColumn(name = "beneficiario_id", referencedColumnName = "id", nullable = false)
     private Beneficiario beneficiario;
-
-
 }

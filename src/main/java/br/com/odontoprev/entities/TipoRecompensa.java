@@ -2,6 +2,7 @@ package br.com.odontoprev.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.Date;
@@ -16,14 +17,18 @@ public class TipoRecompensa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
+    @Size(max = 100)
+    @Column(nullable = false, length = 100)
     private String nome;
 
+    @NotNull
+    @Column(nullable = false)
     private Integer expiracaoDias;
 
-    private Integer aplicacao;
-
-    @OneToMany(mappedBy = "tipoRecompensa")
-    private List<Recompensa> recompensas;
-
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AplicacaoEnum aplicacao;
 }
 

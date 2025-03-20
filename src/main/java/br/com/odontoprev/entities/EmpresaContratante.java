@@ -18,18 +18,15 @@ public class EmpresaContratante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    
+    @NotNull
+    @Size(max = 200)
     private String nome;
 
-    
-    @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$")
+    @NotNull
+    @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$", message = "CNPJ inválido")
     private String cnpj;
 
-    
-    private int numeroContrato;
-
-    @OneToMany(mappedBy = "empresaContratante")
-    private List<PlanoOdontologico> planos;
-
-
+    @NotNull
+    @Size(max = 50)
+    private String numeroContrato;
 }

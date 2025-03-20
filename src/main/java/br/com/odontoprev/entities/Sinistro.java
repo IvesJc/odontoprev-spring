@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.extern.log4j.Log4j;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -17,21 +18,23 @@ public class Sinistro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Date dataSolicitacao;
+    @NotNull
+    @Column(nullable = false)
+    private LocalDateTime dataSolicitacao;
 
-    private Date dataAutorizacao;
+    @NotNull
+    @Column(nullable = false)
+    private LocalDateTime dataAutorizacao;
 
     private Double valorPagoParaPrestador;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "beneficiario_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "beneficiario_id", referencedColumnName = "id", nullable = false)
     private Beneficiario beneficiario;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "prestador_servico_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "prestador_servico_id", referencedColumnName = "id", nullable = false)
     private PrestadorServico prestadorServico;
-
-    @OneToMany(mappedBy = "sinistro")
-    private List<Servico> servicos;
 }

@@ -2,6 +2,7 @@ package br.com.odontoprev.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.Date;
@@ -12,28 +13,30 @@ import java.util.List;
 @Table(name = "tipo_plano_odontologico")
 public class TipoPlanoOdontologico {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
+    @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false, length = 13)
     @NotNull
-    private String numero;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TipoBeneficiarioEnum tipo;
 
-    private String tipo;
-
+    @NotNull
+    @Column(nullable = false)
     private Double preco;
 
-    private Date carenciaDias;
+    @NotNull
+    @Column(nullable = false)
+    private Integer carenciaDias;
 
-    private Date validadeDias;
-
-    @OneToMany(mappedBy = "tipoPlanoOdontologico", cascade = CascadeType.ALL    )
-    private List<Possui> possui;
-
-    @OneToMany(mappedBy = "tipoPlano")
-    private List<PlanoOdontologico> planos;
+    @NotNull
+    @Column(nullable = false)
+    private Integer validadeDias;
 }
 

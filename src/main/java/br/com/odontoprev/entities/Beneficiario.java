@@ -5,14 +5,21 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "beneficiario")
 public class Beneficiario {
 
@@ -20,51 +27,42 @@ public class Beneficiario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
+    @NotNull
+    @Size(max = 100)
     private String nome;
 
-
+    @NotNull
+    @Size(max = 200)
     private String password;
 
-
-    @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$")
+    @NotNull
+    @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$", message = "CPF inválido")
     private String cpf;
 
     @NotNull
-    @Column(nullable = false, length = 15)
-    private String cns;
+    @Enumerated(EnumType.STRING)
+    private TipoBeneficiarioEnum tipo;
 
-    private int tipo;
-
-    @Pattern(regexp = "^(\\+55\\s ?)?(0?(\\(?\\d{2}\\)?)?\\s?\\d{4,5}-?\\d{4}$)")
+    @NotNull
+    @Pattern(regexp = "^(\\+55\\s?)?(0?(\\(?\\d{2}\\)?)?\\s?\\d{4,5}-?\\d{4}$)", message = "Telefone inválido")
     private String telefone;
 
-    @Column(name = "data_adesao")
-    private Date dataAdesao;
+    @NotNull
+    private LocalDate dataAdesao = LocalDate.now();
 
-    private String foto;
+    @Size(max = 300)
+    private String fotoUrl;
 
-    @Column(name = "numero_contrato")
+    @Size(max = 50)
     private String numeroContrato;
 
     @OneToOne
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "beneficiario", cascade = CascadeType.ALL)
-    private List<Contratado> contratos;
-
-    @OneToMany(mappedBy = "beneficiario")
-    private List<Sinistro> sinistros;
-
-    @OneToMany(mappedBy = "beneficiario")
-    private List<Missao> missoes;
-
-    @OneToMany(mappedBy = "beneficiario")
-    private List<Recompensa> recompensas;
-
-    @OneToOne
-    private TipoPlanoOdontologico tipoPlanoOdontologico;
+    @ManyToOne
+    @JoinColumn(name = "empresa_contratante_id")
+    private EmpresaContratante empresaContratante;
 
 }
 

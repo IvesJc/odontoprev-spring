@@ -13,15 +13,13 @@ import java.util.List;
 @Table(name = "rede_credenciada")
 public class RedeCredenciada {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
+    @Size(max = 100)
+    @Column(nullable = false, length = 100)
     private String nome;
-
-    @OneToMany(mappedBy = "redeCredenciada", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Endereco> enderecos;
-
-    @OneToMany(mappedBy = "redeCredenciada", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PrestadorServico> prestadorServicos;
 }

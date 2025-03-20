@@ -20,26 +20,31 @@ public class PrestadorServico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
+    @Size(max = 100)
+    @Column(nullable = false, length = 100)
     private String nome;
 
+    @NotNull
+    @Column(nullable = false)
     private Integer numeroCro;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EspecialidadeEnum especialidade;
 
+    @NotNull
+    @Size(max = 50)
+    @Column(nullable = false, length = 50)
     private String numeroContrato;
 
-    @Range(min = 1, max = 2)
+    @Min(1)
+    @Max(5)
     private Integer avaliacao;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "rede_credenciada_id")
+    @JoinColumn(name = "rede_credenciada_id", referencedColumnName = "id", nullable = false)
     private RedeCredenciada redeCredenciada;
-
-    @OneToMany(mappedBy = "prestadorServico",cascade = CascadeType.ALL)
-    private List<PrestadorServicoTipoServico> tipoServicos;
-
-    @OneToMany(mappedBy = "prestadorServico")
-    private List<Sinistro> sinistros;
 }

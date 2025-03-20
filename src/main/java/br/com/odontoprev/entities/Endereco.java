@@ -5,36 +5,43 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "endereco")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Endereco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
+    @Size(max = 200)
     private String rua;
 
-    private int numero;
+    @NotNull
+    private Integer numero;
 
+    @NotNull
+    @Size(max = 200)
     private String cidade;
 
+    @NotNull
+    @Size(max = 200)
     private String estado;
 
-    @Pattern(regexp = "^\\d{5}-\\d{3}$")
+    @NotNull
+    @Size(max = 10)
+    @Pattern(regexp = "^\\d{5}-\\d{3}$", message = "CEP inválido")
     private String cep;
 
     private String complemento;
-
-    @NotNull
-    @OneToOne(mappedBy = "endereco")
-    private Beneficiario beneficiario;
-
-    @ManyToOne
-    @JoinColumn(name = "rede_credenciada_id")
-    private RedeCredenciada redeCredenciada;
 
 }

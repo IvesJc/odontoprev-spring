@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -16,23 +17,23 @@ public class PlanoOdontologico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Date dataValidade;
-
-    private Double precoCobrado;
-
-    private Date dataFinalCarencia;
+    @NotNull
+    @Column(nullable = false)
+    private LocalDateTime dataExpiracao;
 
     @NotNull
+    @Column(nullable = false)
+    private Double precoCobrado;
+
+    private LocalDateTime dataFinalCarencia;
+
+    // Foreign Keys
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "tipo_plano_odontologico_id")
+    @JoinColumn(name = "tipo_plano_odontologico_id", referencedColumnName = "id", nullable = false)
     private TipoPlanoOdontologico tipoPlano;
 
-
     @ManyToOne
-    @JoinColumn(name = "empresa_contratante_id")
+    @JoinColumn(name = "empresa_contratante_id", referencedColumnName = "id")
     private EmpresaContratante empresaContratante;
-
-
-    @OneToMany(mappedBy = "planoOdontologico", cascade = CascadeType.ALL)
-    private List<Contratado> contratos;
 }

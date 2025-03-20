@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -11,21 +12,27 @@ import java.util.Date;
 @Table(name = "recompensa")
 public class Recompensa {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Date resgatadoEm;
+    @NotNull
+    @Column(nullable = false)
+    private LocalDateTime resgatadoEm;
 
-    private Date expiraEm;
+    @NotNull
+    @Column(nullable = false)
+    private LocalDateTime expiraEm;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "beneficiario_id")
+    @JoinColumn(name = "beneficiario_id", referencedColumnName = "id", nullable = false)
     private Beneficiario beneficiario;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "tipo_recompensa_id")
+    @JoinColumn(name = "tipo_recompensa_id", referencedColumnName = "id", nullable = false)
     private TipoRecompensa tipoRecompensa;
 }
 

@@ -1,10 +1,12 @@
 package br.com.odontoprev.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -16,15 +18,18 @@ public class ProgramaRelacionamentoStatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ColumnDefault("0")
+    @NotNull
+    @Min(0)
+    @Column(nullable = false)
     private Integer qtdePontos;
 
-    @Temporal(TemporalType.DATE)
-    private Date dataAdesao;
+    @NotNull
+    @Column(nullable = false)
+    private LocalDateTime dataAdesao;
 
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "beneficiario_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "beneficiario_id", referencedColumnName = "id", nullable = false)
     private Beneficiario beneficiario;
 }
 
