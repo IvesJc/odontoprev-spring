@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Endereços</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar.html :: navbar}"></div>
+
+<h2>Lista de Endereços</h2>
+<a th:href="@{/enderecos/novo}"><button>Adicionar Novo Endereço</button></a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Rua</th>
+        <th>Número</th>
+        <th>Cidade</th>
+        <th>Estado</th>
+        <th>CEP</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="endereco : ${enderecos}">
+        <td th:text="${endereco.rua}"></td>
+        <td th:text="${endereco.numero}"></td>
+        <td th:text="${endereco.cidade}"></td>
+        <td th:text="${endereco.estado}"></td>
+        <td th:text="${endereco.cep}"></td>
+        <td>
+            <a th:href="@{/enderecos/{id}(id=${endereco.id})}"><button>Detalhes</button></a>
+            <a th:href="@{/enderecos/{id}/editar(id=${endereco.id})}"><button>Editar</button></a>
+            <a th:href="@{/enderecos/{id}/deletar(id=${endereco.id})}"><button>Excluir</button></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:replace="~{fragments/footer.html :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes do Endereço</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<h2>Detalhes do Endereço</h2>
+
+<p><strong>Rua:</strong> <span th:text="${endereco.rua}"></span></p>
+<p><strong>Número:</strong> <span th:text="${endereco.numero}"></span></p>
+<p><strong>Cidade:</strong> <span th:text="${endereco.cidade}"></span></p>
+<p><strong>Estado:</strong> <span th:text="${endereco.estado}"></span></p>
+<p><strong>CEP:</strong> <span th:text="${endereco.cep}"></span></p>
+<p><strong>Complemento:</strong> <span th:text="${endereco.complemento}"></span></p>
+
+<a th:href="@{/enderecos}">Voltar</a>
+<a th:href="@{/enderecos/{id}/editar(id=${endereco.id})}"><button>Editar</button></a>
+<a th:href="@{/enderecos/{id}/deletar(id=${endereco.id})}"><button>Excluir</button></a>
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

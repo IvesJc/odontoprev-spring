@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirmar Exclusão</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar}"></div>
+
+<h2>Tem certeza que deseja excluir este endereço?</h2>
+
+<form th:action="@{/enderecos/{id}/deletar(id=${id})}" method="post">
+    <button type="submit">Confirmar</button>
+    <a th:href="@{/enderecos}">Cancelar</a>
+</form>
+
+<div th:replace="~{fragments/footer}"></div>
+</body>
+</html>
