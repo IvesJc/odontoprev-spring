@@ -3,6 +3,7 @@ package br.com.odontoprev.usecases.mvc;
 import br.com.odontoprev.dto.empresaContratante.EmpresaContratanteDto;
 import br.com.odontoprev.entities.EmpresaContratante;
 import br.com.odontoprev.repositories.EmpresaContratanteRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,6 @@ public class EmpresaContratanteMvcService {
 
     private final EmpresaContratanteRepository repository;
 
-
-    // Listar todos os registros
     public List<EmpresaContratanteDto> getAllEmpresas() {
         return repository.findAll().stream()
                 .map(empresa -> new EmpresaContratanteDto(
@@ -28,7 +27,6 @@ public class EmpresaContratanteMvcService {
                 .toList();
     }
 
-    // Buscar por ID
     public Optional<EmpresaContratanteDto> getEmpresaById(int id) {
         return repository.findById(id)
                 .map(empresa -> new EmpresaContratanteDto(
@@ -39,7 +37,6 @@ public class EmpresaContratanteMvcService {
                 ));
     }
 
-    // Salvar uma nova empresa
     public void saveEmpresa(EmpresaContratanteDto dto) {
         EmpresaContratante empresa = new EmpresaContratante();
         empresa.setNome(dto.nome());
@@ -50,18 +47,18 @@ public class EmpresaContratanteMvcService {
         new EmpresaContratanteDto(empresa.getId(), empresa.getNome(), empresa.getCnpj(), empresa.getNumeroContrato());
     }
 
-    // Atualizar uma empresa
-    public void updateEmpresa(EmpresaContratanteDto dto) {
-        EmpresaContratante empresa = repository.findById(dto.id()).orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
-        empresa.setNome(dto.nome());
-        empresa.setCnpj(dto.cnpj());
-        empresa.setNumeroContrato(dto.numeroContrato());
-        empresa = repository.save(empresa);
+    public void updateEmpresa(EmpresaContratanteDto empresa) {
+        EmpresaContratante entidade = repository.findById(empresa.id())
+                .orElseThrow(() -> new EntityNotFoundException("Empresa não encontrada"));
 
-        new EmpresaContratanteDto(empresa.getId(), empresa.getNome(), empresa.getCnpj(), empresa.getNumeroContrato());
+        entidade.setNome(empresa.nome());
+        entidade.setCnpj(empresa.cnpj());
+        entidade.setNumeroContrato(empresa.numeroContrato());
+
+        repository.save(entidade);
     }
 
-    // Deletar uma empresa
+
     public void deleteEmpresa(int id) {
         repository.deleteById(id);
     }

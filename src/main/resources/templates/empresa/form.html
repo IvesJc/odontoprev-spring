@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Formulário de Empresa</title>
+  <title>Empresa | Formulário</title>
   <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
 <div th:replace="~{fragments/navbar.html :: navbar}"></div>
 
+<h2 th:text="${empresa.id == null} ? 'Criar Nova Empresa' : 'Editar Empresa'"></h2>
 
-<h2 th:text="${empresa.id() == 0} ? 'Cadastrar Nova Empresa' : 'Editar Empresa'"></h2>
-
-<form th:action="${empresa.id() == 0 ? '/empresas/salvar' : '/empresas/' + empresa.id() + '/salvar'}" method="post">
+<form th:action="${empresa.id == null ? '/empresas/salvar' : '/empresas/' + empresa.id + '/editar'}" method="post">
   <label>Nome:</label>
-  <input type="text" name="nome" th:value="${empresa.nome()}" required>
+  <input type="text" name="nome" th:value="${empresa.nome}" required>
 
   <label>CNPJ:</label>
-  <input type="text" name="cnpj" th:value="${empresa.cnpj()}" required>
+  <input type="text" name="cnpj" th:value="${empresa.cnpj}" pattern="\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" required>
 
   <label>Número do Contrato:</label>
-  <input type="text" name="numeroContrato" th:value="${empresa.numeroContrato()}" required>
+  <input type="text" name="numeroContrato" th:value="${empresa.numeroContrato}" required>
 
   <button type="submit">Salvar</button>
 </form>
 
-<a th:href="@{/templates/empresa}">Voltar</a>
+<a th:href="@{/empresas}">Voltar</a>
 
 <div th:replace="~{fragments/footer.html :: footer}"></div>
 </body>

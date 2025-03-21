@@ -1,11 +1,14 @@
 package br.com.odontoprev.gateways.mvc;
 
 import br.com.odontoprev.dto.empresaContratante.EmpresaContratanteDto;
+import br.com.odontoprev.dto.endereco.EnderecoDto;
 import br.com.odontoprev.usecases.mvc.EmpresaContratanteMvcService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/empresas")
@@ -37,8 +40,23 @@ public class EmpresaContratanteMvcController {
     }
     @GetMapping("/{id}/editar")
     public String editarEmpresa(@PathVariable int id, Model model) {
-        empresaService.getEmpresaById(id).ifPresent(empresa -> model.addAttribute("empresa", empresa));
+        // Descompactando o Optional para obter o objeto Empresa
+        Optional<EmpresaContratanteDto> empresaDtoOptional = empresaService.getEmpresaById(id);
+
+        if (empresaDtoOptional.isEmpty()) {
+            return "redirect:/empresas?error=notfound";
+        }
+
+        EmpresaContratanteDto empresaDto = empresaDtoOptional.get();
+        model.addAttribute("empresa", empresaDto);
+
         return "empresa/form";
+    }
+
+    @PostMapping("/{id}/editar")
+    public String editarEmpresa(@PathVariable int id, @ModelAttribute EmpresaContratanteDto empresa) {
+        empresaService.updateEmpresa(empresa);
+        return "redirect:/empresas";
     }
 
     @PostMapping("/{id}/deletar")
