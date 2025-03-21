@@ -46,3 +46,83 @@
   <li>Empresa Contratante</li>
   <li>Rede Credenciada</li>
 </ul>
+
+# API - Endpoints do MVC
+
+Este documento fornece informações sobre os endpoints disponíveis no sistema de gerenciamento de Endereços e Empresas Contratantes.
+
+## Endpoints
+
+### **1. Endereços**
+
+#### **GET /enderecos**
+- **Descrição**: Lista todos os endereços cadastrados no sistema.
+
+#### **GET /enderecos/{id}**
+- **Descrição**: Obtém os detalhes de um endereço específico pelo ID.
+- **Parâmetros**:
+  - `id`: ID do endereço a ser recuperado.
+
+#### **POST /enderecos/salvar**
+- **Descrição**: Cria um novo endereço.
+- **Corpo da requisição**:
+    - `rua`: Rua do endereço.
+    - `numero`: Número do endereço.
+    - `cidade`: Cidade do endereço.
+    - `estado`: Estado do endereço.
+    - `cep`: CEP do endereço.
+    - `complemento`: Complemento do endereço (opcional).
+
+#### **POST /enderecos/{id}/editar**
+- **Descrição**: Atualiza um endereço existente.
+- **Parâmetros**:
+  - `id`: ID do endereço a ser atualizado.
+- **Corpo da requisição**:
+    - `rua`: Rua do endereço.
+    - `numero`: Número do endereço.
+    - `cidade`: Cidade do endereço.
+    - `estado`: Estado do endereço.
+    - `cep`: CEP do endereço.
+    - `complemento`: Complemento do endereço (opcional).
+
+#### **POST /enderecos/{id}/deletar**
+- **Descrição**: Deleta um endereço existente.
+- **Parâmetros**:
+  - `id`: ID do endereço a ser deletado.
+
+### **2. Empresas Contratantes**
+
+#### **GET /empresas**
+- **Descrição**: Lista todas as empresas contratantes cadastradas no sistema.
+
+#### **GET /empresas/{id}**
+- **Descrição**: Obtém os detalhes de uma empresa contratante específica pelo ID.
+- **Parâmetros**: 
+  - `id`: ID da empresa contratante a ser recuperada.
+
+#### **POST /empresas/salvar**
+- **Descrição**: Cria uma nova empresa contratante.
+- **Corpo da requisição**:
+    - `nome`: Nome da empresa contratante.
+    - `cnpj`: CNPJ da empresa contratante.
+    - `numeroContrato`: Número do contrato da empresa contratante.
+
+#### **POST /empresas/{id}/editar**
+- **Descrição**: Atualiza uma empresa contratante existente.
+- **Parâmetros**:
+  - `id`: ID da empresa contratante a ser atualizada.
+- **Corpo da requisição**:
+    - `nome`: Nome da empresa contratante.
+    - `cnpj`: CNPJ da empresa contratante.
+    - `numeroContrato`: Número do contrato da empresa contratante.
+
+#### **POST /empresas/{id}/deletar**
+- **Descrição**: Deleta uma empresa contratante existente.
+- **Parâmetros**:
+  - `id`: ID da empresa contratante a ser deletada.
+
+---
+
+# Vídeo Apresentação
+
+https://youtu.be/Npg4j2YyzBE
