@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/odontoprev-api-java
+    username: postgres
+    password: 123456789
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+
+#  none	Não faz nada. Você cria tudo manualmente.
+#  create	Cria todas as tabelas a cada inicialização (e APAGA as antigas).
+#  create-drop	Cria ao iniciar e apaga ao encerrar a app.
+#  update	Atualiza o schema conforme suas entidades (sem apagar dados).
+#  validate	Verifica se o schema está correto, mas não faz alterações.
