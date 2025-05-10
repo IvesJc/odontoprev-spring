@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public record UpdateBeneficiarioDto(
         String nome,
+        String email,
         String password,
         String cpf,
         int tipo,

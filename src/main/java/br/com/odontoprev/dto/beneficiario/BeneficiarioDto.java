@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public record BeneficiarioDto(
         int id,
         String nome,
+        String email,
         String password,
         String cpf,
         int tipo,

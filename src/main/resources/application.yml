@@ -1,20 +1,7 @@
 spring:
-  #  h2:
-  #    console:
-  #      enabled: true
-  datasource:
+  profiles:
+    active: dev-postgresql
 
-        url: jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl
-        username: rm552824
-        password: 280200
-        driver-class-name: oracle.jdbc.OracleDriver
-#    url: jdbc:postgresql://localhost:5432/odontoprev-api-java
-#    username: postgres
-#    password: 123456789
-#    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    database-platform: org.hibernate.dialect.OracleDialect
+    # mvn spring-boot:run -Dspring-boot.run.profiles=oracle
+    # java -jar sua-api.jar --spring.profiles.active=oracle
+    # SPRING_PROFILES_ACTIVE=oracle
