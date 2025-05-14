@@ -12,6 +12,7 @@ public class BeneficiarioMapper {
         return new BeneficiarioDto(
                 beneficiario.getId(),
                 beneficiario.getNome(),
+                beneficiario.getEmail(),
                 beneficiario.getPassword(),
                 beneficiario.getCpf(),
                 beneficiario.getTipo().ordinal(),  // Converte o enum TipoBeneficiarioEnum para um inteiro
