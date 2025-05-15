@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev-postgresql
+    active: dev-oracle
 
     # mvn spring-boot:run -Dspring-boot.run.profiles=oracle
     # java -jar sua-api.jar --spring.profiles.active=oracle
