@@ -1,8 +1,10 @@
 spring:
   datasource:
         url: jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl
-        username: rm552824
-        password: 280200
+        username: rm553243
+        password: 180600
+#        username: rm552824
+#        password: 280200
         driver-class-name: oracle.jdbc.OracleDriver
 
   jpa:
@@ -10,3 +12,6 @@ spring:
       ddl-auto: update
 
     database-platform: org.hibernate.dialect.OracleDialect
+
+jwt:
+  secret: Q3PwiuvjRfYXUt6pF5BVCkT1+jD1IFf1xP2LjKv0/8U=

@@ -73,17 +73,10 @@ public class Beneficiario implements UserDetails {
     @Column
     private String numeroContrato;
 
-    @Column(name = "account_non_expired")
-    private boolean accountNonExpired;
-
-    @Column(name = "account_non_locked")
-    private boolean accountNonLocked;
-
-    @Column(name = "credentials_non_expired")
-    private boolean credentialsNonExpired;
-
-    @Column(name = "enabled")
-    private boolean enabled;
+    private boolean accountNonExpired = true;
+    private boolean accountNonLocked = true;
+    private boolean credentialsNonExpired = true;
+    private boolean enabled = true;
 
     //EAGER |   Imediatamente junto com a entidade principal  |  Mais pesado, carrega tudo mesmo sem usar
     //LAZY	|   Somente quando for acessado no código	      |  Mais leve, mas pode causar problemas se não estiver dentro de uma transação

@@ -4,6 +4,7 @@ import br.com.odontoprev.dto.login.LoginRequest;
 import br.com.odontoprev.dto.login.LoginResponse;
 import br.com.odontoprev.dto.register.RegisterRequest;
 import br.com.odontoprev.entities.Beneficiario;
+import br.com.odontoprev.entities.TipoBeneficiarioEnum;
 import br.com.odontoprev.repositories.BeneficiarioRepository;
 import br.com.odontoprev.usecases.impl.JwtService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,7 +15,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "Beneficiario", description = "Endpoints destinados para a Autenticação")
+@Tag(name = "Auth", description = "Endpoints destinados para a Autenticação")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -55,6 +55,7 @@ public class AuthController {
         beneficiario.setEmail(request.email());
         beneficiario.setCpf(request.cpf());
         beneficiario.setTelefone(request.telefone());
+        beneficiario.setTipo(TipoBeneficiarioEnum.fromValue(request.tipoBeneficiario()));
         beneficiario.setPassword(passwordEncoder.encode(request.password()));
 
         beneficiarioRepository.save(beneficiario);

@@ -5,7 +5,8 @@ public record RegisterRequest(
         String email,
         String password,
         String cpf,
-        String telefone
+        String telefone,
+        int tipoBeneficiario
 ) {
 
 }
