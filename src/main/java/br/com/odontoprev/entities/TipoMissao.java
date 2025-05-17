@@ -18,6 +18,7 @@ import java.util.List;
 public class TipoMissao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     @NotNull

@@ -1,6 +1,5 @@
 package br.com.odontoprev.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -9,14 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,40 +26,51 @@ public class Beneficiario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     @NotNull
     @Size(max = 100)
+    @Column
+
     private String nome;
 
     @NotNull
     @Pattern(regexp = "^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$", message = "Email inválido")
     @Size(max = 100)
+    @Column
     private String email;
 
     @NotNull
     @Size(max = 200)
+    @Column
     private String password;
 
     @NotNull
     @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$", message = "CPF inválido")
+    @Column
     private String cpf;
 
+    @Column
     @NotNull
     @Enumerated(EnumType.STRING)
     private TipoBeneficiarioEnum tipo;
 
     @NotNull
     @Pattern(regexp = "^(\\+55\\s?)?(0?(\\(?\\d{2}\\)?)?\\s?\\d{4,5}-?\\d{4}$)", message = "Telefone inválido")
+    @Column
     private String telefone;
 
     @NotNull
+    @Column
     private LocalDate dataAdesao = LocalDate.now();
 
     @Size(max = 300)
+    @Column
     private String fotoUrl;
 
     @Size(max = 50)
+    @Column
     private String numeroContrato;
 
     @Column(name = "account_non_expired")
@@ -82,6 +90,7 @@ public class Beneficiario implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "beneficiario_permissao", joinColumns = {@JoinColumn(name = "id_beneficiario")},
             inverseJoinColumns = {@JoinColumn(name = "id_permissao")})
+    @Column
     private List<Permissao> permissoes;
 
     @OneToOne
@@ -107,8 +116,14 @@ public class Beneficiario implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.nome;
+        return this.email;
     }
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+
 
     //    isAccountNonExpired()	Retorna false se a conta passou da validade (ex: conta inativa por muito tempo)
     @Override

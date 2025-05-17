@@ -16,6 +16,7 @@ public class Sinistro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     @NotNull

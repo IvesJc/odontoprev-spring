@@ -18,9 +18,11 @@ public class Permissao implements GrantedAuthority {
     // GrantedAuthority	Representa uma permissão do usuário (ROLE_ADMIN, ROLE_USER, ROLE_MANAGER, etc)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     @Enumerated(EnumType.STRING)
+    @Column
     private Role role;
 
     @Override

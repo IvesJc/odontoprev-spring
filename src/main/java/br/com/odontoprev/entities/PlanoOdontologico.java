@@ -15,6 +15,7 @@ public class PlanoOdontologico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     @NotNull

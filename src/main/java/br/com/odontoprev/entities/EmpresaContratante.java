@@ -16,17 +16,21 @@ public class EmpresaContratante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     @NotNull
     @Size(max = 200)
+    @Column
     private String nome;
 
     @NotNull
     @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$", message = "CNPJ inválido")
+    @Column
     private String cnpj;
 
     @NotNull
     @Size(max = 50)
+    @Column
     private String numeroContrato;
 }

@@ -18,6 +18,7 @@ public class PrestadorServico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     @NotNull
@@ -41,6 +42,7 @@ public class PrestadorServico {
 
     @Min(1)
     @Max(5)
+    @Column
     private Integer avaliacao;
 
     @NotNull

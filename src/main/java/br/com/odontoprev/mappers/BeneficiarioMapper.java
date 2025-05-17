@@ -28,6 +28,7 @@ public class BeneficiarioMapper {
     public static Beneficiario toBeneficiarioFromCreate(CreateBeneficiarioDto createBeneficiarioDto) {
         Beneficiario beneficiario = new Beneficiario();
         beneficiario.setNome(createBeneficiarioDto.nome());
+        beneficiario.setNome(createBeneficiarioDto.email());
         beneficiario.setPassword(createBeneficiarioDto.password());
         beneficiario.setCpf(createBeneficiarioDto.cpf());
         beneficiario.setTipo(TipoBeneficiarioEnum.values()[createBeneficiarioDto.tipo()]);  // Convertendo o int para o enum
@@ -42,6 +43,7 @@ public class BeneficiarioMapper {
     public static Beneficiario toBeneficiarioFromUpdate(UpdateBeneficiarioDto updateBeneficiarioDto) {
         Beneficiario beneficiario = new Beneficiario();
         beneficiario.setNome(updateBeneficiarioDto.nome());
+        beneficiario.setNome(updateBeneficiarioDto.email());
         beneficiario.setPassword(updateBeneficiarioDto.password());
         beneficiario.setCpf(updateBeneficiarioDto.cpf());
         beneficiario.setTipo(TipoBeneficiarioEnum.values()[updateBeneficiarioDto.tipo()]);  // Convertendo o int para o enum

@@ -23,6 +23,7 @@ import java.util.Date;
 public class Missao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     @NotNull

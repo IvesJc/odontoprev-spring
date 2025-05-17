@@ -16,6 +16,7 @@ public class ProgramaRelacionamentoStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     @NotNull
