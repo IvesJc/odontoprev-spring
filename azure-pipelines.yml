@@ -9,7 +9,7 @@ pool:
 variables:
   imageName: 'odontoprev-spring'
   containerRegistry: 'ecrodontoprevchallenge.azurecr.io'
-  azureSubscription: '5509e45f-84b0-425f-939c-f92b90a9202b'
+  azureSubscription: 'Azure-Connection-for-ACS'
 
 steps:
   # Checkout code from the repository
