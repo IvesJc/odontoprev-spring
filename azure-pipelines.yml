@@ -1,0 +1,43 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  imageName: 'odontoprev-spring'
+  containerRegistry: 'ecrodontoprevchallenge.azurecr.io'
+  azureSubscription: '5509e45f-84b0-425f-939c-f92b90a9202b'
+
+steps:
+  # Checkout code from the repository
+  - task: Checkout@1
+
+  # Login to Azure using Service Connection
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az acr login --name $(containerRegistry)
+
+  # Build the Docker image
+  - task: Docker@2
+    inputs:
+      command: 'build'
+      Dockerfile: '**/Dockerfile'
+      buildContext: '.'
+      tags: |
+        $(containerRegistry)/$(imageName):$(Build.BuildId)
+
+  # Push the Docker image to ACR
+  - task: Docker@2
+    inputs:
+      command: 'push'
+      containerRegistry: $(containerRegistry)
+      repository: $(imageName)
+      tags: |
+        $(Build.BuildId)
