@@ -8,11 +8,14 @@ import br.com.odontoprev.mappers.BeneficiarioMapper;
 import br.com.odontoprev.repositories.BeneficiarioRepository;
 import br.com.odontoprev.usecases.BeneficiarioUsecase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,9 +23,10 @@ import java.util.stream.Collectors;
 public class BeneficiarioUsecaseImpl implements BeneficiarioUsecase {
 
     private final BeneficiarioRepository beneficiarioRepository;
+    private final MessageSource messageSource;
 
-
-    public ResponseEntity<List<BeneficiarioDto>> getAllBeneficiarios() {
+    @Override
+    public ResponseEntity<List<BeneficiarioDto>> getAllBeneficiarios(Locale locale) {
         List<Beneficiario> beneficiarios = beneficiarioRepository.findAll();
         List<BeneficiarioDto> beneficiariosDto = beneficiarios.stream()
                 .map(BeneficiarioMapper::toBeneficiarioDto)
@@ -31,49 +35,50 @@ public class BeneficiarioUsecaseImpl implements BeneficiarioUsecase {
         return ResponseEntity.ok(beneficiariosDto);
     }
 
-    public ResponseEntity<BeneficiarioDto> getBeneficiarioById(int id) {
+    @Override
+    public ResponseEntity<BeneficiarioDto> getBeneficiarioById(int id, Locale locale) {
         return beneficiarioRepository.findById(id)
                 .map(beneficiario -> ResponseEntity.ok(BeneficiarioMapper.toBeneficiarioDto(beneficiario)))
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        messageSource.getMessage("beneficiario.not-found", null, locale)
+                ));
     }
 
     @Override
-    public ResponseEntity<BeneficiarioDto> buscarBeneficiarioPorId(int id) {
-        return beneficiarioRepository.findById(id).map(beneficiario -> ResponseEntity.ok(BeneficiarioMapper.toBeneficiarioDto(beneficiario))).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<BeneficiarioDto> buscarBeneficiarioPorId(int id, Locale locale) {
+        return getBeneficiarioById(id, locale);
     }
 
-    public ResponseEntity<BeneficiarioDto> createBeneficiario(CreateBeneficiarioDto createBeneficiarioDto) {
+    @Override
+    public ResponseEntity<BeneficiarioDto> createBeneficiario(CreateBeneficiarioDto createBeneficiarioDto, Locale locale) {
         Beneficiario beneficiario = BeneficiarioMapper.toBeneficiarioFromCreate(createBeneficiarioDto);
-
-        // Salva o beneficiário no repositório
-        Beneficiario savedBeneficiario = beneficiarioRepository.save(beneficiario);
-
-        // Retorna a resposta com o DTO do beneficiário criado
+        Beneficiario saved = beneficiarioRepository.save(beneficiario);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(BeneficiarioMapper.toBeneficiarioDto(savedBeneficiario));
+                .body(BeneficiarioMapper.toBeneficiarioDto(saved));
     }
 
-
     @Override
-    public ResponseEntity<BeneficiarioDto> updateBeneficiario(int id, UpdateBeneficiarioDto updateBeneficiarioDto) {
+    public ResponseEntity<BeneficiarioDto> updateBeneficiario(int id, UpdateBeneficiarioDto dto, Locale locale) {
         if (!beneficiarioRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    messageSource.getMessage("beneficiario.nao.encontrado", null, locale));
         }
 
-        Beneficiario beneficiario = BeneficiarioMapper.toBeneficiarioFromUpdate(updateBeneficiarioDto);
+        Beneficiario beneficiario = BeneficiarioMapper.toBeneficiarioFromUpdate(dto);
         beneficiario.setId(id);
-
         beneficiarioRepository.save(beneficiario);
 
         return ResponseEntity.ok(BeneficiarioMapper.toBeneficiarioDto(beneficiario));
     }
 
-
     @Override
-    public ResponseEntity<Void> deleteBeneficiario(int id) {
+    public ResponseEntity<Void> deleteBeneficiario(int id, Locale locale) {
         if (!beneficiarioRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    messageSource.getMessage("beneficiario.nao.encontrado", null, locale));
         }
+
         beneficiarioRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
