@@ -6,6 +6,31 @@ spring:
     basename: messages
     encoding: UTF-8
 
-  # mvn spring-boot:run -Dspring-boot.run.profiles=oracle
+  ai:
+    azure:
+      openai:
+        api-key: ${AZURE_OPENAPI_KEY}
+        endpoint: ${AZURE_OPENAPI_EP}
+        chat:
+            options:
+              deployment-name: gpt-4o-mini
+              temperature:
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+info:
+  app:
+    name: OdontoPrev - Adaptive Dialogs
+    descricao: API para gestão de do app OdontoPrev.
+
+
+    # mvn spring-boot:run -Dspring-boot.run.profiles:oracle
     # java -jar sua-api.jar --spring.profiles.active=oracle
   # SPRING_PROFILES_ACTIVE=oracle
