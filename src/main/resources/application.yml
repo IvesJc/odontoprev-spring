@@ -6,11 +6,6 @@ spring:
     basename: messages
     encoding: UTF-8
 
-  data:
-    mongodb:
-      uri: mongodb://admin:admin2025@20.195.178.167:27017/sorrisoativo?authSource=admin
-      database: sorrisoativo
-
   ai:
     azure:
       openai:
